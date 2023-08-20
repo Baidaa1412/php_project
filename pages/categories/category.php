@@ -5,11 +5,62 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/style.css"/>
+  <link rel="stylesheet" href="../../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <style>
+    
+    .category-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+  margin-bottom: 3rem;
+}
 
+.category-card {
+    display: inline-block; /* Display categories in a row */
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    width: 250px;
+    background-color: #FFFFFF;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    transition: box-shadow 0.3s;
+    position: relative;
+}
+
+.category-card:hover {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Highlight on hover */
+}
+
+.category-card img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.category-card h2 {
+    font-size: 18px;
+    color: #4BA2A5;
+    margin: 0;
+    text-align: center;
+    transition: text-decoration 0.3s; /* For removing underline on hover */
+}
+
+.category-card a {
+    text-decoration: none;
+    color: #4BA2A5;
+}
+
+.category-card h2:hover {
+    text-decoration: none; /* Remove underline on hover */
+}
+
+   </style>
   <title>Document</title>
 </head>
 
@@ -17,7 +68,7 @@
 
   <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="./images/logo.png"  /></div>
+    <div class="logo"><img src="../../images/logo.png"  /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -56,48 +107,47 @@
       </div>
     </ul>
   </nav>
-  <div class="page_wraper">
-  <section class="maincon">
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><button id="but1"
-            >
-            SHOP NOW
-          </button>
-          </div>
-          
-          <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimg2.png'  alt="Second slide" ><button id="but2"
-            >
-           GIFT NOW
-          </button>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide" > <button id="but3"
-            >
-            SHOP NOW
-          </button>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
-          <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
-          <span class="sr-only" >Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-      </section>
-      
-      
-      <footer>
+    
+  <div class="category-container">
+  <?php
+// Assuming your database connection credentials
+$servername = "localhost";
+$username = "root";
+$dbpassword = "";
+$dbname = "presentodb";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Query to retrieve categories
+$query = "SELECT  id, name, picture_cat FROM category";
+$result = $conn->query($query);
+
+// Process and display categories as HTML cards
+while ($row = $result->fetch_assoc()) {
+    $categoryId = $row['id']; // Get the category ID
+    $categoryName = $row['name'];
+    $imageData = $row['picture_cat'];
+    $base64Image = base64_encode($imageData);
+    // Generate HTML card for each category
+    echo '<div class="category-card">';
+    echo '<a href="../products/products.php?category=' . $categoryId . '">'; // Pass category ID as a parameter
+    echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="category Image">';
+    echo '<h2>' . $categoryName . '</h2>';
+    echo '</div>';
+}
+
+// Close the database connection
+$conn->close();
+?>
+  </div>
+
+  <footer>
       <div class="footer">
         <div class="container">     
             <div class="row">                       
@@ -117,11 +167,11 @@
                     <div class="single_footer single_footer_address">
                         <h4>GET TO KNOW US</h4>
                         <ul>
-                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
-                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
-                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
-                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
-                            <li><a href="#partener">Paterners</a></li>
+                        <li><a href="./aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="./contactus.php">Contact Us</a></li>
+                            <li><a href="./terms.php">Terms and conditions </a></li>
+                            <li><a href="./policy.php">privacy policy  </a></li>
+                            <li><a href="../../index.php#partener">Parteners</a></li>
                         </ul>
                     </div>
                 </div><!--- END COL -->
@@ -154,10 +204,5 @@
     </div>
 </footer>
 
-
-
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+</body>
 </html>
