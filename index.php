@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -17,7 +17,7 @@
 
   <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="./1-removebg-preview (2).png" style="width:25%;" /></div>
+    <div class="logo"><img src="./images/logo.png"  /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -27,11 +27,11 @@
 
       <!-- NAVIGATION MENUS -->
       <div class="menu">
-        <li><a href="/" style="text-decoration: none;">Home</a></li>
-        <li><a href="/" style="text-decoration: none;">About</a></li>
+        <li><a href="index.php" style="text-decoration: none;">Home</a></li>
+        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
-          <a href="/" style="text-decoration: none;" >Categories</a>
+          <a >Categories</a>
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
@@ -50,7 +50,7 @@
           <ul class="dropdown">
             <li><a href="/">Sign up</a></li>
             <li><a href="/">Log in</a></li>
-            <li><a href="/">Contact us</a></li>
+            <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
           </ul>
         </li>
       </div>
@@ -66,22 +66,28 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" src='https://i.postimg.cc/76h8c8Qc/Screenshot-2023-08-18-142940.png' alt="First slide"><button id="but1"
+            <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><button id="but1"
             >
             SHOP NOW
           </button>
           </div>
           
           <div class="carousel-item">
-            <img class="d-block w-100" src='https://i.postimg.cc/bvkpKz5d/1690103538773-3.jpg'  alt="Second slide">
+            <img class="d-block w-100" src='./images/sliderimg2.png'  alt="Second slide" ><button id="but2"
+            >
+           GIFT NOW
+          </button>
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src='https://i.postimg.cc/bvkpKz5d/1690103538773-3.jpg' alt="Third slide">
+            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide" > <button id="but3"
+            >
+            SHOP NOW
+          </button>
           </div>
         </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
+          <span class="carousel-control-prev-icon" aria-hidden="true" ></span>
+          <span class="sr-only" >Previous</span>
         </a>
         <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
@@ -90,93 +96,37 @@
       </div>
       </section>
      
-      
-        <section class="categories">
-            <h1 id="categoriestext">Categories</h1>            
-            <div class="categroy">
-            <div class="card" >
-                <img src="https://i.postimg.cc/CxZf0HF5/5b27b841f776c613db45a2e512ca4e27-removebg-preview.png" alt="Flower" ><br><br>
-                <h2><a href="Flower.html" style="text-decoration: none;">Flower</a></h2>
-            </div>
-            
-            <div class="card">
-                <img src="https://i.postimg.cc/mgZFnfnY/4897fcfd15e8f331f11c397f2734b465.jpg" alt="chocolate" ><br><br>
-                <h2><a href="chocolate.html" style="text-decoration: none;">Chocolate</a></h2>
-            </div>
-            <div class="card">
-                <img src='https://i.postimg.cc/D0dR8Xnb/b96ea9fd818d1b6c573457eced0e7876-removebg-preview.png' alt="Cake">
-                <h2><a href="Cake.html" style="text-decoration: none;">Cake</a></h2>
-            </div>
-             
-            <div class="card">
-                <img src="https://i.postimg.cc/tJ0BdC2t/84556f85980242dcaf2ece2372f9fc8c.jpg" alt="Jewelry">
-                <h2><br><br><a href="jewelry.html"  style="text-decoration: none;">Jewelry</a></h2>
-            </div>
-            <div class="card">
-                <img src='https://i.postimg.cc/kggj9HZC/b779ed375edca759615dd1654e7f695a.jpg'  alt="Perfume">
-                <h2><br><br><a href="Perfume.html" style="text-decoration: none;">Perfume</a></h2>
-            </div>
-            </div>
-      </section>
+      <?php include 'php/categories.php' ?>
+     <div id="partener"> <?php include './pages/mainpage/partener.php' ?> </div>
 
-      <section >
-        <h1 style="text-align: center ;">Parteners</h1> 
-        <br>
-        <div class="parteners">
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div>
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div>
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div>
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div>
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div> 
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div> 
-        <div class="card">
-            <img src='https://i.postimg.cc/MKg4wQN5/download.png'  alt="Perfume">
-            <h2>Nafesah</h2>
-        </div></div>
-      </section></div>
+       
+</div>
+      
       <footer>
       <div class="footer">
         <div class="container">     
             <div class="row">                       
                 <div class="col-lg-4 col-sm-4 col-xs-12">
                     <div class="single_footer">
-                        <h4>Categories</h4>
+                        <h4>CATEGORISE</h4>
                         <ul>
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Simply dummy text</a></li>
-                            <li><a href="#">The printing and typesetting </a></li>
-                            <li><a href="#">Standard dummy text</a></li>
-                            <li><a href="#">Type specimen book</a></li>
+                        <li><a href="/">Flower</a></li>
+                        <li><a href="/">Chocolate</a></li>
+                        <li><a href="/">Cake</a></li>
+                        <li><a href="/">Plants</a></li>
+                         <li><a href="/">Jewelry</a></li>
                         </ul>
                     </div>
                 </div><!--- END COL --> 
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="single_footer single_footer_address">
-                        <h4>Page Link</h4>
+                        <h4>GET TO KNOW US</h4>
                         <ul>
-                            <li><a href="#">Lorem Ipsum</a></li>
-                            <li><a href="#">Simply dummy text</a></li>
-                            <li><a href="#">The printing and typesetting </a></li>
-                            <li><a href="#">Standard dummy text</a></li>
-                            <li><a href="#">Type specimen book</a></li>
+                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
+                            <li><a href="#partener">Paterners</a></li>
                         </ul>
                     </div>
                 </div><!--- END COL -->
@@ -192,10 +142,10 @@
                     </div>
                     <div class="social_profile">
                         <ul>
-                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
                             <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
                         </ul>
                     </div>                          
                 </div><!--- END COL -->         
