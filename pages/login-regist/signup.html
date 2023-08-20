@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+   
+</head>
+
+<body>
+    <div class="container">
+        
+        <form  action="register.php" method="post" onsubmit="return validateForm()">
+          <div class="form-grid">
+            <div class="form-group">
+                <label for="fullName">Full Name:</label> <br>
+                <input type="text" id="fullName" name="name" required>
+                
+            </div>
+            <div class="form-group"> 
+                <label for="email">Email:</label> <br>
+                <input type="email" id="email" name="email" required>
+               
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile:</label> <br>
+                <input type="tel" id="mobile" name="mobile" required>
+                
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label> <br>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label> <br>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Address:</label> <br>
+                <input type="text" id="location" name="location" oninput="changeColor(this)" onclick="clearInput(this)" required value="City-Street">
+                
+            </div>
+        </div>
+            <button type="submit" class="btn">Sign Up</button>
+            <div class="register-link">
+                <p>Already have an account? <a class="login" href="../login-regist/login.html">Log in here</a></p>
+            </div>
+        </form>
+        
+    </div>
+    <script src="validation.js"></script>
+
+    
+   
+</body>
+
+</html>
