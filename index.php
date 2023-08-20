@@ -17,8 +17,7 @@
 
   <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="./images/logo.png"  /></div>
-
+    <div class="logo"><img src="./images/logo.png" onclick="redirectToPage()" ></div>
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
       <!-- USING CHECKBOX HACK -->
@@ -35,14 +34,42 @@
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <li><a href="/">Flower</a></li>
+          <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+  
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>" . $row["name"] . "</li>";
+               echo "</div>";
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
+            <!-- <li><a href="/">Flower</a></li>
             <li><a href="/">Chocolate</a></li>
             <li><a href="/">Cake</a></li>
             <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li>
+            <li><a href="/">Jewelry</a></li> -->
           </ul>
         </li>
-        <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
+        <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
@@ -95,42 +122,13 @@
         </a>
       </div>
       </section>
-        <?php
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
-          $dbname = "presentodb";
-  
-          $conn = new mysqli($servername, $username, $password, $dbname);
-  
-          if ($conn->connect_error) {
-              die("فشل الاتصال: " . $conn->connect_error);
-          }
-       $sql = "SELECT name, picture_cat FROM category";
-       $result = $conn->query($sql);
+      
+    <section> 
+ <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div>
 
-       if ($result->num_rows > 0) {
-           echo "<h1>Categories</h1>";
-           echo "<div class='card-container'>";
-           while ($row = $result->fetch_assoc()) {
-               $img = base64_encode($row['picture_cat']??null);
-               echo "<div class='card1'>";
-               echo  "<img src='" ."data:image/jpeg;base64," . $img. "' alt='partener Image'>";
-               echo "<h3>" . $row["name"] . "</h3>";
-               echo "</div>";
-           }
-           echo "</div>";
-       } else {
-           echo "<h1 class='no-data'>Partners</h1>";
-           echo "";
-       }
-
-       // إغلاق الاتصال بقاعدة البيانات
-       $conn->close();
-        ?>
-    </div>
-
-     <div id="partener"> <?php include './pages/mainpage/partener.php' ?> </div>
+ <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
+      
+      </section>
 
        
 </div>
@@ -143,12 +141,35 @@
                     <div class="single_footer">
                         <h4>CATEGORISE</h4>
                         <ul>
-                        <li><a href="/">Flower</a></li>
-                        <li><a href="/">Chocolate</a></li>
-                        <li><a href="/">Cake</a></li>
-                        <li><a href="/">Plants</a></li>
-                         <li><a href="/">Jewelry</a></li>
-                        </ul>
+                        <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+  
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>"."<a>" . $row["name"] . "</li>"."</a>";
+              
+               echo "</div>"; 
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
                     </div>
                 </div><!--- END COL --> 
                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -197,5 +218,5 @@
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<script src="./javascript/main.js" ></script>
 </html>

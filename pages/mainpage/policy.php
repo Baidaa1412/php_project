@@ -37,7 +37,7 @@
   
 <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="../../images/logo.png"  /></div>
+    <div class="logo"><img src="../../images/logo.png"  onclick="redirectToPage()" /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -62,7 +62,7 @@
             <li><a href="/">Jewelry</a></li>
           </ul>
         </li>
-        <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
+        <li><a href="../mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
@@ -164,6 +164,10 @@
   });
 });
 
+function redirectToPage() {
+    window.location.href = "../../index.php";
+  }
+  
 </script>
 </body>
 
