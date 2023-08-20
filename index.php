@@ -48,8 +48,8 @@
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <li><a href="/">Sign up</a></li>
-            <li><a href="/">Log in</a></li>
+            <li><a href="./pages/login-regist/signup.html">Sign up</a></li>
+            <li><a href="./pages/login-regist/login.html">Log in</a></li>
             <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
           </ul>
         </li>
@@ -95,8 +95,41 @@
         </a>
       </div>
       </section>
-     
-      <?php include 'php/categories.php' ?>
+        <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+  
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name, picture_cat FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           echo "<h1>Categories</h1>";
+           echo "<div class='card-container'>";
+           while ($row = $result->fetch_assoc()) {
+               $img = base64_encode($row['picture_cat']??null);
+               echo "<div class='card1'>";
+               echo  "<img src='" ."data:image/jpeg;base64," . $img. "' alt='partener Image'>";
+               echo "<h3>" . $row["name"] . "</h3>";
+               echo "</div>";
+           }
+           echo "</div>";
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+
+       // إغلاق الاتصال بقاعدة البيانات
+       $conn->close();
+        ?>
+    </div>
+
      <div id="partener"> <?php include './pages/mainpage/partener.php' ?> </div>
 
        
