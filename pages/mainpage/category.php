@@ -134,7 +134,7 @@ try {
         echo '<div class="overflow">';
         foreach ($result as $row) {
        
-            $img = base64_encode($row['picture_cat'] ?? null);
+            $img = base64_encode($row['image'] ?? null);
             $categoryId = $row['id']; // Get the category ID
             echo "<div class='bloco cardTranstion $categoryId'>";
           

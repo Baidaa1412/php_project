@@ -40,7 +40,7 @@
           $password = "";
           $dbname = "presentodb";
 
-          $conn = new mysqli($servername, $username, $password, $dbname , 4306);
+          $conn = new mysqli($servername, $username, $password, $dbname);
   
           if ($conn->connect_error) {
               die("فشل الاتصال: " . $conn->connect_error);
@@ -62,11 +62,11 @@
            echo "";
        }
 ?>
-            <!-- <li><a href="/">Flower</a></li>
+            <li><a href="/">Flower</a></li>
             <li><a href="/">Chocolate</a></li>
             <li><a href="/">Cake</a></li>
             <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li> -->
+            <li><a href="/">Jewelry</a></li>
           </ul>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
