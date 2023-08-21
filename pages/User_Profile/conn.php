@@ -1,21 +1,10 @@
 <?php
-// Connect to the database (replace with your actual connection code)
 $host = 'localhost';
 $dbname = 'presentodb';
 $username = 'root';
 $password = '';
 
-$conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-
-// $userId=1;
-// Query to retrieve user information
-// $query = "SELECT name, email, bio FROM User WHERE id = :id";
-// $stmt = $conn->prepare($query);
-// $stmt->bindParam(':id', $userId); // $userId should be the user's ID you want to retrieve
-// $stmt->execute();
-
-// Fetch the user information
-// $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 
 
 // Check if the connection was successful
@@ -25,5 +14,10 @@ $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
 //     echo "Connection failed!";
 // }
 
-
+try{
+  $conn = new PDO("mysql:host=localhost;dbname=presentodb", "root", "");
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+  echo "database error" . $e->getMessage();
+}
 ?>

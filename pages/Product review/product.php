@@ -1,7 +1,7 @@
 <?php
 require("conn.php");
 
-$userId=1;
+$userId=2;
 // Query to retrieve user information
 $query = "SELECT picture ,name, price, description FROM product WHERE id = :id";
 $stmt = $conn->prepare($query);
