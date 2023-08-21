@@ -9,7 +9,7 @@ NumberOfCustomers = document.querySelector("#NumCustomer");
 document.body.onload = FetchData();
 
 function FetchData() {
-  fetch("./php/returnData.php", {
+  fetch("./php/GetDashboardData.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
