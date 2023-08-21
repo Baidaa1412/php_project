@@ -124,13 +124,32 @@
       </section>
       
     <section> 
- <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div>
+ <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div> 
+ 
 
+      <img src="./images/White Beige Minimalist Elegant Classy Book Review Blog Banner (3).png"><button id="but6" style="
+  background-color: rgb(1, 139, 139);
+   color:rgb(8, 8, 8);
+    z-index: 1;
+     position: absolute;
+      margin-left: -60%;
+      margin-top: 20%;
+
+      height: 8%;
+      width: 10%;
+      cursor: pointer;
+      border-radius: 5px;
+    font-weight: 600;"
+            >
+
+      
+            SHOP NOW
+          </button>
  <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
       
       </section>
+   
 
-       
 </div>
       
       <footer>

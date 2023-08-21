@@ -52,6 +52,16 @@
       color: #555;
       text-align:left;
     }
+    .addto-cart {
+    background-color: #4BA2A5;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
   </style>
 </head>
 <body>
@@ -75,20 +85,21 @@
 
     if ($result->num_rows > 0) {
       
-
-        while ($row = $result->fetch_assoc()) {
-            $title = $row['name'];
-            $image =  base64_encode($row['picture']??null);
-            echo '<div class="card">';
-            echo  "<img src='" ."data:image/jpeg;base64," . $image. "' alt='partener Image'>";
-            echo '<div class="card-body">';
-            echo '<h1 class="card-text">' . $row['description'] . '</h1>';
-             echo '<h3 class="card-text">' . $row['price'] ."JD". '</h3>';
-
-            echo '</div>';
-            echo '</div>';
+      while ($row = $result->fetch_assoc()) {
+        $title = $row['name'];
+        $image =  base64_encode($row['picture']??null);
+        echo '<div class="card">';
+        echo  "<img src='" ."data:image/jpeg;base64," . $image. "' alt='partener Image'>";
+        echo '<div class="card-body">';
+        echo '<h1 class="card-text">' . $row['description'] . '</h1>';
+         echo '<h3 class="card-text">' . $row['price'] ."JD". '</h3>';
+        echo '<button class="addto-cart">Add to Cart</button>';
+        echo '</div>';
+        echo '</div>';
+    }
+    
         }
-    } else {
+    else {
       echo "<h1 class='no-data'>Partners</h1>";
 
         echo '';
