@@ -1,31 +1,29 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$dbpassword = "";
-$dbname = "presentodb";
+// Get the selected category ID from the URL parameter
+$selectedCategory = $_GET['category'];
 
-$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+// Include the PDO connection file
+include_once '../../php/connection.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+try {
+    // Query to retrieve the selected category's name
+    $categoryQuery = "SELECT name FROM category WHERE id = :selectedCategory";
+    $categoryStatement = $conn->prepare($categoryQuery);
+    $categoryStatement->bindParam(':selectedCategory', $selectedCategory, PDO::PARAM_INT);
+    $categoryStatement->execute();
+
+    if ($categoryStatement->rowCount() === 1) {
+        $categoryRow = $categoryStatement->fetch(PDO::FETCH_ASSOC);
+        $categoryName = $categoryRow['name'];
+
+        // Display the category name in a header
+        // echo '<h2>' . $categoryName . '</h2>';
+    }
+} catch(PDOException $e) {
+    // Handle PDO exception
+    die("Query failed: " . $e->getMessage());
 }
-
-// Get the selected category ID from the URL
-if (isset($_GET['category']) && is_numeric($_GET['category'])) {
-    $selectedCategoryID = $_GET['category'];
-} else {
-    // Handle invalid category ID or no category selected
-    echo "Invalid category selection.";
-    exit;
-}
-
-// Query to retrieve products for the selected category
-$query = "SELECT * FROM product WHERE category_id = $selectedCategoryID";
-$result = $conn->query($query);
-
-// Close the database connection
-$conn->close();
-?>
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -123,11 +121,28 @@ $conn->close();
     background-color: #357f81;
 }
 
-/* Media query for smaller screens */
-@media (max-width: 768px) {
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+@media screen and (max-width: 768px) {
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .product-card {
-        width: 100%;
-        margin: 10px 0;
+        width: calc(60% - 20px); /* Two cards in a row with margin in between */
     }
 }
     </style>
@@ -183,60 +198,79 @@ $conn->close();
         // Get the selected category ID from the URL parameter
         $selectedCategory = $_GET['category'];
 
-        // Assuming your database connection credentials
-        $servername = "localhost";
-        $username = "root";
-        $dbpassword = "";
-        $dbname = "presentodb";
+        // Include the PDO connection file
 
-        // Create a connection
-        $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+        try {
+            // Query to retrieve the selected category's name
+            $categoryQuery = "SELECT name FROM category WHERE id = :selectedCategory";
+            // Assuming $conn is your PDO connection
+            $categoryStatement = $conn->prepare($categoryQuery);
+            $categoryStatement->bindParam(':selectedCategory', $selectedCategory, PDO::PARAM_INT);
+            $categoryStatement->execute();
 
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+            if ($categoryStatement->rowCount() === 1) {
+                $categoryRow = $categoryStatement->fetch(PDO::FETCH_ASSOC);
+                $categoryName = $categoryRow['name'];
+
+                // Display the category name in a header
+                echo '<h2>' . $categoryName . '</h2>';
+            }
+        } catch(PDOException $e) {
+            // Handle PDO exception
+            die("Query failed: " . $e->getMessage());
         }
-
-        // Query to retrieve the selected category's name
-        $categoryQuery = "SELECT name FROM category WHERE id = $selectedCategory";
-        $categoryResult = $conn->query($categoryQuery);
-
-        if ($categoryResult->num_rows === 1) {
-            $categoryRow = $categoryResult->fetch_assoc();
-            $categoryName = $categoryRow['name'];
-
-            // Display the category name in a header
-            echo '<h2>' . $categoryName . '</h2>';
-        }
-
-        // Close the database connection
-        $conn->close();
-        ?>
+        ?> 
     </header>
     <div class="main-container">
         <div class="product-container">
-        <?php
-while ($row = $result->fetch_assoc()) {
-    $productName = $row['name'];
-    $imageData = $row['picture'];
-    $base64Image = base64_encode($imageData);
-    $productDescription = $row['description']; // Assuming you have a 'description' column in your products table
-    $productPrice = $row['price']; // Assuming you have a 'price' column in your products table
+            <?php
+            // Get the selected category ID from the URL
+            if (isset($_GET['category']) && is_numeric($_GET['category'])) {
+                $selectedCategoryID = $_GET['category'];
+            } else {
+                // Handle invalid category ID or no category selected
+                echo "Invalid category selection.";
+                exit;
+            }
 
-    echo '<div class="product-card">';
-    echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
-    echo '<h2>' . $productName . '</h2>';
-    echo '<p>' . $productDescription . '</p>';
-    echo '<p>Price: JD' . $productPrice . '</p>';
-    echo '<div class="add-to-cart-container">';
-    echo '<button class="add-to-cart-button">Add to Cart</button>';
-    echo '</div>';
-    echo '</div>';
-}
-?>
+            try {
+                // Query to retrieve products for the selected category
+                $query = "SELECT * FROM product WHERE category_id = :selectedCategoryID";
+                $statement = $conn->prepare($query);
+                $statement->bindParam(':selectedCategoryID', $selectedCategoryID, PDO::PARAM_INT);
+                $statement->execute();
+
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                foreach ($result as $row) {
+                    $productName = $row['name'];
+                    $imageData = $row['picture'];
+                    $base64Image = base64_encode($imageData);
+                    $productDescription = $row['description'];
+                    $productPrice = $row['price'];
+                    $productId = $row['id']; // Adding product ID
+
+                    echo '<div class="product-card">';
+                    echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
+                    echo '<h2>' . ucfirst(htmlspecialchars($productName)) . '</h2>';
+                    echo '<p>' . htmlspecialchars($productDescription) . '</p>';
+                    echo '<p>Price: JD' . htmlspecialchars($productPrice) . '</p>';
+                    echo '<div class="add-to-cart-container">';
+                    echo '<button class="add-to-cart-button" data-product-id="' . $productId . '">Add to Cart</button>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            } catch(PDOException $e) {
+                // Handle PDO exception
+                die("Query failed: " . $e->getMessage());
+            }
+            ?>
         </div>
     </div>
 
+    <div id="popup" class="popup">
+        <p>Added to Cart!</p>
+    </div>
 
     <footer>
       <div class="footer">
@@ -291,9 +325,36 @@ while ($row = $result->fetch_assoc()) {
                     <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
                 </div><!--- END COL -->                 
             </div><!--- END ROW -->                 
-        </div><!--- END CONTAINER -->
+        </div><!--- END CONTAINER -->\
     </div>
 </footer>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Add to Cart button click event
+        $('.add-to-cart-button').click(function() {
+            // Get the product ID from the data attribute
+            var productId = $(this).data('product-id');
+
+            // Send an AJAX request to add the product to the cart
+            $.ajax({
+                url: 'add_to_cart.php', // Replace with the path to your add_to_cart.php file
+                method: 'POST',
+                data: {
+                    product_id: productId
+                },
+                success: function(response) {
+                    // Display a success message or perform any other actions
+                    alert('Product added to cart successfully.');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error response
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+</script> 
 </body> 
 
 </html>

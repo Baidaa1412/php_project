@@ -8,7 +8,7 @@
             background-color: #f0f0f0;
         }
 
-        .container {
+        .content {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
@@ -57,40 +57,27 @@
     </style>
 </head>
 <body>
-    <div  class="container">
-        <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "presentodb";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) {
-            die("فشل الاتصال: " . $conn->connect_error);
-        }
-        $sql = "SELECT name_parteners, picture_parteners FROM parteners";
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            echo "<h1>Partners</h1>";
-            echo "<div class='card-container'>";
-            while ($row = $result->fetch_assoc()) {
-                $img = base64_encode($row['picture_parteners']??null);
-                echo "<div class='card1'>";
-                echo  "<img src='" ."data:image/jpeg;base64," . $img. "' alt='partener Image'>";
-                echo "<h3>" . $row["name_parteners"] . "</h3>";
-                echo "</div>";
-            }
-            echo "</div>";
-        } else {
-            echo "<h1 class='no-data'>Partners</h1>";
-            echo "";
-        }
-
-        // إغلاق الاتصال بقاعدة البيانات
-        $conn->close();
-        ?>
+    <div class="content">
+        <h1>Partners</h1>
+        <div class="card-container">
+            <div class="card1">
+                <img src="../../images/anabtawi.png" alt="partener Image">
+                <h3>العنبتاوي</h3>
+            </div>
+            <div class="card1">
+                <img src="../../images/khater.png" alt="partener Image">
+                <h3>خاطر</h3>
+            </div>
+            <div class="card1">
+                <img src="../../images/azhar.png" alt="partener Image">
+                <h3>أزهار الخامسة</h3>
+            </div> <div class="card1">
+                <img src="../../images/naffeseh.png" alt="partener Image">
+                <h3>نفيسة</h3>
+            </div>
+            <!-- Repeat for other partners -->
+        </div>
+    </div>
     </div>
 </body>
 </html>

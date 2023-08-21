@@ -60,39 +60,41 @@
 <body>
     
     <div class="container">
-        <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "presentodb";
+    <div class="category-container">
+  <?php
+// Include the PDO connection file
+include '../../php/connection.php';
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+try {
+    // Query to retrieve categories
+    $query = "SELECT  id, name, picture_cat FROM category";
+    $statement = $conn->query($query);
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($conn->connect_error) {
-            die("فشل الاتصال: " . $conn->connect_error);
-        }
-        $sql = "SELECT name_parteners, picture_parteners FROM parteners";
-        $result = $conn->query($sql);
+    // Process and display categories as HTML cards
+    foreach ($result as $row) {
+        $categoryId = $row['id']; // Get the category ID
+        $categoryName = $row['name'];
+        $imageData = $row['picture_cat'];
+        $base64Image = base64_encode($imageData);
+        
+        // Generate HTML card for each category
+        echo '<div class="category-card">';
+        echo '<a href="../products/products.php?category=' . $categoryId . '">'; // Pass category ID as a parameter
+        echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="category Image">';
+        echo '<h2>' . htmlspecialchars($categoryName) . '</h2>'; // Using htmlspecialchars to prevent XSS
+        echo '</div>';
+    }
+} catch(PDOException $e) {
+    // Handle PDO exception
+    die("Query failed: " . $e->getMessage());
+} finally {
+    // Close the database connection (PDO)
+    $conn = null;
+}
+?>
+  </div>
 
-        if ($result->num_rows > 0) {
-            echo "<h1>Partners</h1>";
-            echo "<div class='card-container'>";
-            while ($row = $result->fetch_assoc()) {
-                $img = base64_encode($row['picture_parteners']??null);
-                echo "<div class='card1'>";
-                echo  "<img src='" ."data:image/jpeg;base64," . $img. "' alt='partener Image'>";
-                echo "<h3>" . $row["name_parteners"] . "</h3>";
-                echo "</div>";
-            }
-            echo "</div>";
-        } else {
-            echo "<h1 class='no-data'>Partners</h1>";
-            echo "";
-        }
-
-        // إغلاق الاتصال بقاعدة البيانات
-        $conn->close();
-        ?>
     </div>
 </body>
 </html>

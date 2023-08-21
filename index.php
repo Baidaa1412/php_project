@@ -43,7 +43,7 @@
           </ul>
         </li>
         <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
-        <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
+        <li><a href="./pages/products/cart.php"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->

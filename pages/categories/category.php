@@ -110,40 +110,36 @@
     
   <div class="category-container">
   <?php
-// Assuming your database connection credentials
-$servername = "localhost";
-$username = "root";
-$dbpassword = "";
-$dbname = "presentodb";
+// Include the PDO connection file
+include '../../php/connection.php';
 
-// Create a connection
-$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+try {
+    // Query to retrieve categories
+    $query = "SELECT  id, name, image FROM category";
+    $statement = $conn->query($query);
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    // Process and display categories as HTML cards
+    foreach ($result as $row) {
+        $categoryId = $row['id']; // Get the category ID
+        $categoryName = $row['name'];
+        $imageData = $row['image'];
+        $base64Image = base64_encode($imageData);
+        
+        // Generate HTML card for each category
+        echo '<div class="category-card">';
+        echo '<a href="../products/products.php?category=' . $categoryId . '">'; // Pass category ID as a parameter
+        echo '<img src="data:image/svg+xml;base64,' . $base64Image . '" alt="category Image">';
+        echo '<h2>' . ucfirst(htmlspecialchars($categoryName)) . '</h2>'; // Using htmlspecialchars to prevent XSS
+        echo '</div>';
+    }
+} catch(PDOException $e) {
+    // Handle PDO exception
+    die("Query failed: " . $e->getMessage());
+} finally {
+    // Close the database connection (PDO)
+    $conn = null;
 }
-
-// Query to retrieve categories
-$query = "SELECT  id, name, picture_cat FROM category";
-$result = $conn->query($query);
-
-// Process and display categories as HTML cards
-while ($row = $result->fetch_assoc()) {
-    $categoryId = $row['id']; // Get the category ID
-    $categoryName = $row['name'];
-    $imageData = $row['picture_cat'];
-    $base64Image = base64_encode($imageData);
-    // Generate HTML card for each category
-    echo '<div class="category-card">';
-    echo '<a href="../products/products.php?category=' . $categoryId . '">'; // Pass category ID as a parameter
-    echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="category Image">';
-    echo '<h2>' . $categoryName . '</h2>';
-    echo '</div>';
-}
-
-// Close the database connection
-$conn->close();
 ?>
   </div>
 
@@ -203,6 +199,6 @@ $conn->close();
         </div><!--- END CONTAINER -->
     </div>
 </footer>
-
+<script src="script.js"></script> 
 </body>
 </html>
