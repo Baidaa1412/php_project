@@ -40,7 +40,7 @@
           $password = "";
           $dbname = "presentodb";
 
-          $conn = new mysqli($servername, $username, $password, $dbname , 4306);
+          $conn = new mysqli($servername, $username, $password, $dbname);
   
           if ($conn->connect_error) {
               die("فشل الاتصال: " . $conn->connect_error);
@@ -62,11 +62,11 @@
            echo "";
        }
 ?>
-            <!-- <li><a href="/">Flower</a></li>
+            <li><a href="/">Flower</a></li>
             <li><a href="/">Chocolate</a></li>
             <li><a href="/">Cake</a></li>
             <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li> -->
+            <li><a href="/">Jewelry</a></li>
           </ul>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
@@ -124,13 +124,32 @@
       </section>
       
     <section> 
- <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div>
+ <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div> 
+ 
 
+      <img src="./images/White Beige Minimalist Elegant Classy Book Review Blog Banner (3).png"><button id="but6" style="
+  background-color: rgb(1, 139, 139);
+   color:rgb(8, 8, 8);
+    z-index: 1;
+     position: absolute;
+      margin-left: -60%;
+      margin-top: 20%;
+
+      height: 8%;
+      width: 10%;
+      cursor: pointer;
+      border-radius: 5px;
+    font-weight: 600;"
+            >
+
+      
+            SHOP NOW
+          </button>
  <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
       
       </section>
+   
 
-       
 </div>
       
       <footer>

@@ -10,7 +10,7 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
       <!-- <to-do> ADD a link to the home page</to-do> -->
 
       <a href="../../../index.php">
-        <img src="../../../images/178x52.svg" alt="CoolAdmin" />
+        <img src="../../../images/178x52.svg" alt="Presento" />
       </a>
     </div>
     <div class="header__navbar">

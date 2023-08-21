@@ -1,5 +1,5 @@
 <?php
-require("conn.php");
+require("../../php/connection.php");
 
 $userId=2;
 // Query to retrieve user information
