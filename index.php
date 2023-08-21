@@ -39,8 +39,8 @@
           $username = "root";
           $password = "";
           $dbname = "presentodb";
-  
-          $conn = new mysqli($servername, $username, $password, $dbname);
+
+          $conn = new mysqli($servername, $username, $password, $dbname , 4306);
   
           if ($conn->connect_error) {
               die("فشل الاتصال: " . $conn->connect_error);
