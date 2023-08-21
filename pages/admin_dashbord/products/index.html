@@ -54,7 +54,6 @@
                 <div class="table-responsive">
                   <table class="table table-top-countries">
                     <tbody id="TopProductTable">
-
                     </tbody>
                   </table>
                 </div>
@@ -73,7 +72,7 @@
               <div class="row d-flex justify-content-around ">
                 <div class="col-md-6 col-lg-5">
                   <div class="statistic__item statistic__item--green">
-                    <h2 class="number">$10,368</h2>
+                    <h2 class="number totalStock"></h2>
                     <span class="desc">Total Stock</span>
                     <div class="icon">
                       <i class="zmdi zmdi-shopping-cart"></i>
@@ -82,7 +81,7 @@
                 </div>
                 <div class="col-md-6 col-lg-5">
                   <div class="statistic__item statistic__item--orange">
-                    <h2 class="number">$388,688</h2>
+                    <h2 class="number itemsSoldToday"></h2>
                     <span class="desc">Items sold Today</span>
                     <div class="icon">
                       <i class="zmdi zmdi-calendar-note"></i>
@@ -93,7 +92,7 @@
               <div class="row justify-content-around">
                 <div class="col-md-6 col-lg-5">
                   <div class="statistic__item statistic__item--blue">
-                    <h2 class="number">$1,086</h2>
+                    <h2 class="number totalSold"></h2>
                     <span class="desc">Total Sold</span>
                     <div class="icon">
                       <i class="zmdi zmdi-money"></i>
@@ -102,7 +101,7 @@
                 </div>
                 <div class="col-md-6 col-lg-5">
                   <div class="statistic__item statistic__item--red">
-                    <h2 class="number">$1,060,386</h2>
+                    <h2 class="number numberOfCategories"></h2>
                     <span class="desc">Number of categories</span>
                     <div class="icon">
                       <i class="zmdi zmdi-account-o"></i>
@@ -132,67 +131,8 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <tr class="tr-shadow ">
-                  <td><img src="../../../images/400x400.svg"></td>
-                  <td>
-                    <span class="name">Red roses</span>
-                  </td>
-                  <td class="stock">2000</td>
-                  <td class="discount">10%</td>
-                  <td>
-                    <span class="price">$120</span>
-                  </td>
-                  <td>
-                    <label class="au-checkbox">
-                      <input type="checkbox">
-                      <span class="au-checkmark"></span>
-                    </label>
-                  </td>
-                  <td>
-                    <div class="table-data-feature">
+              <tbody class="productTable">
 
-                      <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <i class="zmdi zmdi-edit"></i>
-                      </button>
-                      <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                        <i class="zmdi zmdi-delete"></i>
-                      </button>
-
-                    </div>
-                  </td>
-                </tr>
-                <tr class="spacer"></tr>
-                <tr class="tr-shadow ">
-                  <td><img src="../../../images/400x400.svg"></td>
-                  <td>
-                    <span class="name">Red roses</span>
-                  </td>
-                  <td class="stock">2000</td>
-                  <td class="discount">10%</td>
-                  <td>
-                    <span class="price">$120</span>
-                  </td>
-                  <td>
-                    <label class="au-checkbox">
-                      <input type="checkbox">
-                      <span class="au-checkmark"></span>
-                    </label>
-                  </td>
-                  <td>
-                    <div class="table-data-feature">
-
-                      <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                        <i class="zmdi zmdi-edit"></i>
-                      </button>
-                      <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                        <i class="zmdi zmdi-delete"></i>
-                      </button>
-
-                    </div>
-                  </td>
-                </tr>
-                <tr class="spacer"></tr>
               </tbody>
             </table>
           </div>
