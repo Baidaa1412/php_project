@@ -19,7 +19,7 @@ if ($stmt->rowCount() === 0)
   echo json_encode('invalied');
 else{
   session_start();
-  $_SESSION['isLogedIn'] = true;
+  $_SESSION['isLogedIn'] = [true,$res[0]['id']];
   echo json_encode('valid');
 }
 
