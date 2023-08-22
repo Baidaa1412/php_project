@@ -17,8 +17,7 @@
 
   <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="./images/logo.png"  /></div>
-
+    <div class="logo"><img src="./images/logo.png" onclick="redirectToPage()" ></div>
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
       <!-- USING CHECKBOX HACK -->
@@ -35,6 +34,34 @@
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
+          <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>" . $row["name"] . "</li>";
+               echo "</div>";
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
             <li><a href="/">Flower</a></li>
             <li><a href="/">Chocolate</a></li>
             <li><a href="/">Cake</a></li>
@@ -42,8 +69,13 @@
             <li><a href="/">Jewelry</a></li>
           </ul>
         </li>
+<<<<<<< HEAD
         <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
         <li><a href="./pages/products/cart.php"><i class="fas fa-shopping-cart"></i></a></li>
+=======
+        <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
+        <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
+>>>>>>> e52484632583e8fcc627527f2900c9f6d473b7ec
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
@@ -96,6 +128,34 @@
       </div>
       </section>
       
+    <section> 
+ <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div> 
+ 
+
+      <img src="./images/White Beige Minimalist Elegant Classy Book Review Blog Banner (3).png"><button id="but6" style="
+  background-color: rgb(1, 139, 139);
+   color:rgb(8, 8, 8);
+    z-index: 1;
+     position: absolute;
+      margin-left: -60%;
+      margin-top: 20%;
+
+      height: 8%;
+      width: 10%;
+      cursor: pointer;
+      border-radius: 5px;
+    font-weight: 600;"
+            >
+
+      
+            SHOP NOW
+          </button>
+ <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
+      
+      </section>
+   
+
+</div>
       
       <footer>
       <div class="footer">
@@ -105,12 +165,35 @@
                     <div class="single_footer">
                         <h4>CATEGORISE</h4>
                         <ul>
-                        <li><a href="/">Flower</a></li>
-                        <li><a href="/">Chocolate</a></li>
-                        <li><a href="/">Cake</a></li>
-                        <li><a href="/">Plants</a></li>
-                         <li><a href="/">Jewelry</a></li>
-                        </ul>
+                        <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+  
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>"."<a>" . $row["name"] . "</li>"."</a>";
+              
+               echo "</div>"; 
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
                     </div>
                 </div><!--- END COL --> 
                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -159,5 +242,5 @@
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+<script src="./javascript/main.js" ></script>
 </html>
