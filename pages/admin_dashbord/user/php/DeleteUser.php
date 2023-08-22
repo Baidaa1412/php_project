@@ -3,7 +3,7 @@ include_once '../../../../php/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = json_decode(file_get_contents("php://input"));
-  $stmt = $conn->prepare('update product set status = 0 where id = :id');
+  $stmt = $conn->prepare('update user set status = 0 where id = :id');
   $stmt->bindParam(':id' , $id);
   $stmt->execute();
 

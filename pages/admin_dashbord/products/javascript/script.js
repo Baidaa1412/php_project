@@ -7,6 +7,7 @@ let productTable = document.querySelector(".productTable");
 let numberOfCategories = document.querySelector(".numberOfCategories");
 let totalSold = document.querySelector(".totalSold");
 let itemsSoldToday = document.querySelector(".itemsSoldToday");
+
 let addItemBtn = document.querySelector(".addItemBtn");
 addItemBtn.addEventListener("click", addProduct);
 
@@ -86,7 +87,7 @@ function insertProduct(e) {
   };
   getBase64(newFile).then((data) => appendDB(data, product));
 }
-function appendDB(){
+function appendDB(data, product) {
   product.picture = data;
   fetch("./php/AddProduct.php", {
     method: "POST",
@@ -123,6 +124,7 @@ function renderData(data) {
   DyEmail.forEach((e) => {
     e.textContent = email;
   });
+  console.log(data);
   populateTopProductTable(data[1]);
   populateStatistic(data[2]);
   populateProductTable(data[3]);
@@ -387,7 +389,7 @@ function getBase64(file) {
 }
 
 function isFileAllowed(fileInput) {
-  const allowedExtensions = ["svg", "png", "jpeg"];
+  const allowedExtensions = ["svg", "png", "jpeg", "jpg", "webp"];
   if (!fileInput) {
     return false;
   }

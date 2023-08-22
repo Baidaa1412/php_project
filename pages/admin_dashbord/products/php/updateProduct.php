@@ -31,11 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bindParam(':URI', $URI);
   $stmt->bindParam(':id', $id);
   $stmt->execute();
-
-  $stmt = $conn->prepare("SELECT URI, picture FROM product WHERE id = :id");
-
-  $stmt->bindParam(':id', $id);
-  $stmt->execute();
-  $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  echo json_encode($result['URI'].','.base64_encode($result['picture']));
+  if($stmt)
+    echo json_encode('succecful');
+  else  
+    echo json_encode('failed');  
 }
