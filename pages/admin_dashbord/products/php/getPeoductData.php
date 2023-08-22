@@ -31,16 +31,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $respone[] = $res[0];
 
-    $stmt = $conn->prepare("SELECT name , id, picture, stock, discount, price, is_best_seller AS 'best_seller' FROM product");
+    $stmt = $conn->prepare("SELECT name , id, picture,URI, stock, discount, price, is_best_seller AS 'best_seller' ,status FROM product");
     $stmt->execute();
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
     foreach ($res as &$value) {
       $value['picture'] = base64_encode($value['picture']);
     }
+
     $respone[] = $res;
 
     echo json_encode($respone);
-
   } else
     echo json_encode('code_1');
 }
