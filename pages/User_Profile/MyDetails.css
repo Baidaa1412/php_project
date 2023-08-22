@@ -2,18 +2,43 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 	font-family: sans-serif;
 }
+
+header{
+  border: 2px solid rgb(0, 0, 0);
+  height: 20rem;
+
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+  /* border: 2px solid yellow; */
+  
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+p {
+  color: rgb(85, 85, 85);
+}
+
+/* TRANSITION */
+
 a,
 .btn {
   transition: all 300ms ease;
 }
 
-/* -- -------------------Nav Bare----------------- -- */
+/* -- -------------------NavBar----------------- -- */
 
 .navbar {
   display: flex;
@@ -55,7 +80,7 @@ a,
 } */
 
 .navbar-links li a:hover {
-color: purple;
+  color: purple;
 }
 
 .toggle-button {
@@ -77,22 +102,24 @@ color: purple;
 }
 
 
-/* -- -------------------/Nav Bare----------------- -- */
+/* -- -------------------/NavBar----------------- -- */
 
 /* -----------------------SideBar--------------------- */
 
 .app {
 	display: flex;
 	min-height: 100vh;
+  /* border: 2px solid yellow; */
+  width: 100%;
 }
 
 .menu-toggle {
 	display: none;
 	position: fixed;
-	top: 0.9rem;
+	top: .74rem;
 	right: 2rem;
 	width: 60px;
-	height: 50px;
+	height: 60px;
 	border-radius: 99px;
 	background-color: #2e3047;
 	cursor: pointer;
@@ -154,12 +181,6 @@ color: purple;
 	margin-bottom: 0.5em;
   
 } */
-.sidebar-logo img{
-  width: 7rem;
-  margin-left: 3.3rem;
-  
-  
-}
 
 .sidebar .menu {
 	margin: 0 -1rem;
@@ -189,99 +210,81 @@ color: purple;
 }
 /* -----------------------SideBar--------------------- */
 
-/* -------------------------Section-------------------- */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  overflow: hidden;
-}
-.profile-card {
-  width: 60%; /* Set the width to 75% */
-  background-color: #fff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-	/* border: 5px solid #aeff00; */
-  height: 34rem;
+
+/* ---------------------------------------Mian------------------------------------ */
+
+/* --------------------------Section---------------------- */
+/* Apply general styles to the form */
+form {
+  width: 600px;
   margin: 0 auto;
-  margin-bottom: 5rem;
-  align-self: center;
+  margin-top: 5rem;
+  height: 70%;
+  padding: 20px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
 
 }
-.profile-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+
+/* Style for form sections */
+.div_main {
+  margin-bottom: 15px;
 }
 
-.profile-info {
+
+/* Style for input labels */
+p {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Style for input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease-in-out;
+
+}
+
+/* Style for the "Save" button */
+#saveButton {
+  background-color:purple;
+  color: #fff;
+  border: 1px solid #000;
+  padding: 11px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  font-family: Arial, sans-serif;
+  height: 2.5rem;
   text-align: center;
-  /* margin-top: 3rem; */
-  /* border: 5px solid #aeff00; */
-
 
 }
-.profile-name {
-  font-size: 33px;
-  margin-bottom: 2px;
-  font-weight: 300;
-}
-.profile-age,
-.profile-email {
-  font-size: 26px;
-  color: #666;
+
+.div_main:hover {
+  transform: translateY(-5px);
+  transition: transform 0.2s ease-in-out;
 }
 
 
-@media (max-width: 545px) {
- .profile-card{
-  margin-bottom: 15rem;
- }
-
- .profile-image {
-  width: 15rem;
-  height: 15rem;
- }
+#saveButton:hover {
+  background: none;
+  color: black;
+  font-size: 15px;
+  transition: .5s;
 }
 
-@media (max-width: 310px) {
-  .profile-card{
-   margin-bottom: 15rem;
-  }
- 
-  .profile-image {
-   width: 6rem;
-   height: 8rem;
-  }
- }
+/* Add more styles as needed */
 
-@media (max-width: 420px) {
-  .profile-image {
-    width: 14rem;
-    height:12rem;
-   }
-  }
-
-@media (max-width: 390px) {
-  .profile-image {
-    width: 10rem;
-    height:12rem;
-   }
-}
-
-@media (max-width: 290px) {
-  .profile-image {
-    width: 10rem;
-    height:12rem;
-   }
-}
-@media (max-width: 288px) {
-  .profile-image {
-    width: 8rem;
-    height:9rem;
-   }
-}
+/* --------------------------Section---------------------- */

@@ -116,39 +116,44 @@ box-sizing:border-box;
   <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
   
   <?php
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
-          $dbname = "presentodb";
-  
-          $conn = new mysqli($servername, $username, $password, $dbname);
-  
-          if ($conn->connect_error) {
-              die("فشل الاتصال: " . $conn->connect_error);
-          }
-       $sql = "SELECT name, picture_cat FROM category";
-       $result = $conn->query($sql);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "presentodb";
 
-       if ($result->num_rows > 0) {
-           
-           echo '<div class="overflow">';
-           while ($row = $result->fetch_assoc()) {
-               $img = base64_encode($row['picture_cat']??null);
-               echo "<div class='bloco'>";
-               echo  "<img src='" ."data:image/jpeg;base64," . $img. "' alt='partener Image'>";
-               echo "<br>";
-               echo "<h3>" . $row["name"] . "</h3>";
-               echo "</div>";
-           }
-           echo "</div>";
-       } else {
-           echo "<h1 class='no-data'>Partners</h1>";
-           echo "";
-       }
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql = "SELECT * FROM category";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-       // إغلاق الاتصال بقاعدة البيانات
-       $conn->close();
-        ?>
+    if (count($result) > 0) {
+        echo '<div class="overflow">';
+        foreach ($result as $row) {
+       
+            $img = base64_encode($row['image'] ?? null);
+            $categoryId = $row['id']; // Get the category ID
+            echo "<div class='bloco cardTranstion $categoryId'>";
+          
+            echo "<img src='" . "data:image/jpeg;base64," . $img . "' alt='partner Image'>";
+            echo "<br>";
+            echo "<h3>" . $row["name"] . "</h3>";
+            echo "</div>";
+        }
+        echo "</div>";
+    } else {
+        echo "<h1 class='no-data'>Partners</h1>";
+    }
+} catch (PDOException $e) {
+    echo "فشل الاتصال: " . $e->getMessage();
+}
+
+$conn = null; // Close the database connection
+?>
+
   <button class="next" > <i class="fas fa-arrow-right"></i> </button>
 </div>
 
@@ -210,6 +215,7 @@ btnPrevious.onclick = function(){
 
 
 
+
 function resize() {
   if(window.innerWidth < 768){
     let overflow = document.querySelector('.overflow');
@@ -222,6 +228,18 @@ function resize() {
 
 window.onresize = resize;
 doTheMagic();
+
+
+let cards = document.querySelectorAll('div.cardTranstion');
+
+cards.forEach(card => card.addEventListener('click', handleCardClick));
+
+function handleCardClick(event) {
+  const category = event.currentTarget.classList[2];
+  window.location.href = `./pages/products/products.php?category=${category}`;
+}
+
  </script>
 </body>
+
     </html>

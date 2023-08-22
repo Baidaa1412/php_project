@@ -40,7 +40,7 @@
           $password = "";
           $dbname = "presentodb";
 
-          $conn = new mysqli($servername, $username, $password, $dbname , 4306);
+          $conn = new mysqli($servername, $username, $password, $dbname);
   
           if ($conn->connect_error) {
               die("فشل الاتصال: " . $conn->connect_error);
@@ -62,11 +62,7 @@
            echo "";
        }
 ?>
-            <!-- <li><a href="/">Flower</a></li>
-            <li><a href="/">Chocolate</a></li>
-            <li><a href="/">Cake</a></li>
-            <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li> -->
+          
           </ul>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
@@ -93,23 +89,24 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><button id="but1"
-            >
-            SHOP NOW
-          </button>
+            <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><a href="./pages/categories/category.php">
+  <button id="but1">
+    SHOP NOW
+  </button>
           </div>
           
           <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimg2.png'  alt="Second slide" ><button id="but2"
-            >
-           GIFT NOW
-          </button>
+            <img class="d-block w-100" src='./images/sliderimg2.png'  alt="Second slide" ><a href="./pages/categories/category.php">
+  <button id="but2">
+    Gift NOW
+  </button>
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide" > <button id="but3"
-            >
-            SHOP NOW
-          </button>
+            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide" ><a href="./pages/categories/category.php">
+  <button id="but3">
+    SHOP NOW
+  </button>
+</a>
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev" >
@@ -124,13 +121,32 @@
       </section>
       
     <section> 
- <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div>
+ <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div> 
+ 
 
+      <img src="./images/White Beige Minimalist Elegant Classy Book Review Blog Banner (3).png"><a href="./pages/categories/category.php"><button id="but6" style="
+  background-color: rgb(1, 139, 139);
+   color:rgb(8, 8, 8);
+    z-index: 1;
+     position: absolute;
+      margin-left: -60%;
+      margin-top: 20%;
+
+      height: 8%;
+      width: 10%;
+      cursor: pointer;
+      border-radius: 5px;
+    font-weight: 600;"
+            >
+
+      
+            SHOP NOW
+          </button></a>
  <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
       
       </section>
+   
 
-       
 </div>
       
       <footer>
@@ -142,34 +158,32 @@
                         <h4>CATEGORISE</h4>
                         <ul>
                         <?php
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
-          $dbname = "presentodb";
-  
-          $conn = new mysqli($servername, $username, $password, $dbname);
-  
-          if ($conn->connect_error) {
-              die("فشل الاتصال: " . $conn->connect_error);
-          }
-       $sql = "SELECT name FROM category";
-       $result = $conn->query($sql);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "presentodb";
 
-       if ($result->num_rows > 0) {
-           while ($row = $result->fetch_assoc()) {
-               echo "<div class='cat'>";
-               echo "<li>"."<a>" . $row["name"] . "</li>"."</a>";
-              
-               echo "</div>"; 
-           }
-         
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    $sql = "SELECT name FROM category limit 5";
+    $stmt = $pdo->query($sql);
 
-       } else {
-           echo "<h1 class='no-data'>Partners</h1>";
-           echo "";
-       }
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='cat'>";
+            echo "<li><a>" . $row["name"] . "</a></li>";
+            echo "</div>"; 
+        }
+    } else {
+        echo "<h1 class='no-data'>Partners</h1>";
+    }
+} catch (PDOException $e) {
+    echo "فشل الاتصال: " . $e->getMessage();
+}
 ?>
+
                     </div>
                 </div><!--- END COL --> 
                 <div class="col-md-4 col-sm-4 col-xs-12">
