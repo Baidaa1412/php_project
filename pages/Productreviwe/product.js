@@ -1,4 +1,6 @@
- // <!-- -----------------Table that display the comments --------------- -->
+function redirectToPage() {
+    window.location.href = "../../index.php";
+  }// <!-- -----------------Table that display the comments --------------- -->
  document.addEventListener("DOMContentLoaded", function() {
     const addToCartButton = document.getElementById("add-to-cart");
     const quantityInput = document.getElementById("quantity");
@@ -20,7 +22,7 @@
       if (quantity > 0) {
         alert(`Added ${quantity} products to the cart`);
       }
+      
     });
-
-  
+ 
   });

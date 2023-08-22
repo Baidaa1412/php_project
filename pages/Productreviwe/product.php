@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../../css/style.css"/>
+  <link rel="stylesheet" href="./product.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -35,7 +37,7 @@
 require("conn.php");
 
 try {
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $conn = new PDO("mysql:host=localhost;dbname=presentodb", "root","");
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
   $sql = "SELECT name FROM category";
@@ -107,17 +109,6 @@ if (isset($_GET['product']) && is_numeric($_GET['product'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
-    <link rel="stylesheet" href="./product.css">
-</head>
-<body>     
-
-
 
  <!-- Display Product -->
 <div class="con">
@@ -153,47 +144,154 @@ if (isset($_GET['product']) && is_numeric($_GET['product'])) {
   </div>
 </div>
 
+      
+
 <?php
-    // make sure you have a post ID 1 in your "posts table"
-    $post_id = 1;
-?>
- 
-<form action="index.php" method="post">
- 
-    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>" required>
- 
-    <p>
-        <label>Your name</label>
-        <input type="text" name="name" required>
-    </p>
- 
- 
- 
-    <p>
-        <label>Comment</label>
-        <textarea name="comment" required></textarea>
-    </p>
- 
-    <p>
-        <input type="submit" value="Add Comment" name="post_comment">
-    </p>
-</form>
-</div>
-<?php
-$conn = mysqli_connect("localhost", "root", "", "presentodb");
- 
-if (isset($_POST["post_comment"]))
-{
-    $name = mysqli_real_escape_string($conn, $_POST["name"]);
-    $comment = mysqli_real_escape_string($conn, $_POST["comment"]);
-    $reply_of = 0;
- 
-    mysqli_query($conn, "INSERT INTO comments(name, email, comment) VALUES ('" . $name . "', '" . $email . "', '" . $comment  );
-    echo "<p>Comment has been posted.</p>";
+// Assuming your database connection credentials
+$servername = "localhost";
+$username = "root";
+$dbpassword = "";
+$dbname = "presentodb";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
- 
+
+// Get comments for the selected product
+$productId = $_GET['product']; // Get the product ID from the URL or wherever it's available
+$commentsQuery = "SELECT * FROM review WHERE productId = $productId";
+$commentsResult = $conn->query($commentsQuery);
+
+// Fetch comments and relevant user information
+$comments = array();
+while ($commentRow = $commentsResult->fetch_assoc()) {
+    $comments[] = $commentRow;
+}
+
+// Close the database connection
+$conn->close();
 ?>
-</section>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Comments</title>
+</head>
+<body>
+
+<h1>Product Comments</h1>
+
+<?php
+// Assuming your database connection credentials
+$servername = "localhost";
+$username = "root";
+$dbpassword = "";
+$dbname = "presentodb";
+
+// Create a connection
+$conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Get comments for the selected product
+$productId = $_GET['product']; // Get the product ID from the URL or wherever it's available
+$commentsQuery = "SELECT * FROM review WHERE productId = $productId";
+$commentsResult = $conn->query($commentsQuery);
+
+// Fetch comments and relevant user information
+$comments = array();
+while ($commentRow = $commentsResult->fetch_assoc()) {
+    $comments[] = $commentRow;
+}
+
+// Assuming you have the comments data stored in the $comments array
+foreach ($comments as $comment) {
+    $commentText = $comment['comment'];
+    $userId = $comment['userId']; // Assuming you have a 'userId' column in the 'review' table
+
+    // Retrieve user information based on the userId
+    $userQuery = "SELECT name FROM user WHERE id = $userId";
+    $userResult = $conn->query($userQuery);
+
+    if ($userResult->num_rows === 1) {
+        $userRow = $userResult->fetch_assoc();
+        $username = $userRow['name'];
+    } else {
+        $username = "Unknown User"; // Default if user not found
+    }
+
+    // Display the comment along with the user's username
+    echo '<p class="rev1"><strong><i class="fas fa-user"></i> ' . $username. '</strong>' . '</p>';
+    echo '<p class="rev1" >' . $commentText . '</p>';
+    echo '<hr>'; // Add a horizontal line between comments
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+
+<?php
+// ... Your existing code ...
+
+// Add comment form
+echo '<div class="comment-form">';
+echo '<form method="post">';
+echo '<input type="hidden" name="product_id" value="' . $productId . '">';
+echo '<textarea name="comment" placeholder="Write your comment" class="comment-input"></textarea>';
+echo '<button type="submit" class="comment-button">Submit Comment</button>';
+echo '</form>';
+echo '</div>';
+
+echo '</div>'; // Close the product-card div
+?>
+
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    // Assuming your database connection credentials
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "presentodb";
+
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // Set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Get the values from the submitted form
+        $productId = $_POST['product_id'];
+        $comment = $_POST['comment'];
+
+        // Insert the comment into the database
+        $insertQuery = "INSERT INTO review (productId, comment) VALUES (?, ?)";
+        $stmt = $conn->prepare($insertQuery);
+        $stmt->execute([$productId, $comment]);
+
+        echo "Comment added successfully.";
+    } catch (PDOException $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+    // Close the database connection
+    $conn = null;
+}
+?>
+
+
+
+  </section>
   <footer>
       <div class="footer">
         <div class="container">     
@@ -212,7 +310,7 @@ try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $sql = "SELECT name FROM category";
+    $sql = "SELECT name FROM category limit 5";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -237,10 +335,10 @@ try {
                     <div class="single_footer single_footer_address">
                         <h4>GET TO KNOW US</h4>
                         <ul>
-                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
-                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
-                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
-                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
+                        <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="../mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="../mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="../mainpage/policy.php">privacy policy  </a></li>
                             <li><a href="#partener">Paterners</a></li>
                         </ul>
                     </div>
@@ -273,5 +371,12 @@ try {
         </div><!--- END CONTAINER -->
     </div>
 </footer>
-<script src="./product.js" ></script>
+
+
+<script>
+  function redirectToPage() {
+        window.location.href = "../../index.php";
+      } </script>
+<script src="product.js" >
+   </script>
 </body>

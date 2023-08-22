@@ -64,12 +64,9 @@
   <title>Document</title>
 </head>
 
-<body>
-
-  <nav class="navbar">
+<body> <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="../../images/logo.png"  /></div>
-
+    <div class="logo"><img src="../../images/logo.png" onclick="redirectToPage()" ></div>
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
       <!-- USING CHECKBOX HACK -->
@@ -78,22 +75,46 @@
 
       <!-- NAVIGATION MENUS -->
       <div class="menu">
-        <li><a href="index.php" style="text-decoration: none;">Home</a></li>
-        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
+        <li><a href="../../index.php" style="text-decoration: none;">Home</a></li>
+        <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
           <a >Categories</a>
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <li><a href="/">Flower</a></li>
-            <li><a href="/">Chocolate</a></li>
-            <li><a href="/">Cake</a></li>
-            <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li>
+          <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>" . $row["name"] . "</li>";
+               echo "</div>";
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
+          
           </ul>
         </li>
-        <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
+        <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
@@ -106,7 +127,8 @@
         </li>
       </div>
     </ul>
-  </nav>
+    </nav>
+
     
   <div class="category-container">
   <?php
@@ -125,14 +147,14 @@ if ($conn->connect_error) {
 }
 
 // Query to retrieve categories
-$query = "SELECT  id, name, picture_cat FROM category";
+$query = "SELECT  id, name, image FROM category";
 $result = $conn->query($query);
 
 // Process and display categories as HTML cards
 while ($row = $result->fetch_assoc()) {
     $categoryId = $row['id']; // Get the category ID
     $categoryName = $row['name'];
-    $imageData = $row['picture_cat'];
+    $imageData = $row['image'];
     $base64Image = base64_encode($imageData);
     // Generate HTML card for each category
     echo '<div class="category-card">';
@@ -167,10 +189,10 @@ $conn->close();
                     <div class="single_footer single_footer_address">
                         <h4>GET TO KNOW US</h4>
                         <ul>
-                        <li><a href="./aboutus.php" style="text-decoration: none;">About Us</a></li>
-                            <li><a href="./contactus.php">Contact Us</a></li>
-                            <li><a href="./terms.php">Terms and conditions </a></li>
-                            <li><a href="./policy.php">privacy policy  </a></li>
+                        <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="../mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="../mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="../mainpage/policy.php">privacy policy  </a></li>
                             <li><a href="../../index.php#partener">Parteners</a></li>
                         </ul>
                     </div>
