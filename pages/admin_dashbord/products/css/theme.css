@@ -4639,10 +4639,27 @@ section {
   padding: 25px 40px;
   padding-right: 10px;
   border: none;
+  
+}
+.table-data2.table tbody td input{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.table-data2.table tbody td:first-child div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.table-data2.table tbody td div button{
+  background-color: #e6e8e9;
+  border-radius: 10px;
 }
 
 .table-data2.table tbody td img {
-  max-width: max(40%, 15vmin);
+  max-width: 150px;
 }
 .table-data2.table tbody td.desc {
   color: #4272d7;
@@ -4653,6 +4670,12 @@ section {
   background: transparent;
 }
 
+.tr-shadow input{
+  background-color: #f4f4f4;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 20px;
+}
 .tr-shadow {
   -webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.03);
   -moz-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.03);

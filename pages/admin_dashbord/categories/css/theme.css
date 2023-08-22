@@ -4648,6 +4648,34 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
   .table-data2.table tbody td.desc {
     color: #4272d7;
   }
+  .table-data2.table tbody td img {
+  max-width: 150px;
+}
+.table-data2.table tbody td.desc {
+  color: #4272d7;
+}
+.tr-shadow input{
+  background-color: #f4f4f4;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 20px;
+}
+  .table-data2.table tbody td div button{
+    background-color: #e6e8e9;
+    border-radius: 10px;
+  }
+  .table-data2.table tbody td:first-child div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+  .table-data2.table tbody td input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
   
   .table-data2 .spacer {
     height: 5px;
