@@ -78,7 +78,7 @@ $conn = null; // Close the database connection
   </nav>
   <section>
   <?php
-require("conn.php");
+require("../../php/connection.php");
 
 if (isset($_GET['product']) && is_numeric($_GET['product'])) {
     $productId = $_GET['product'];
