@@ -79,9 +79,9 @@ At Presento we are dedicated to meeting our customers' expectations and providin
         <div class="imgabout">
         <img src="../../images/aboutus.png">
         </div>
-
+     
     </div>
-    <div id="partener"> <?php include './partener.php' ?> </div>
+   <section></section>
 
     <footer>
       <div class="footer">

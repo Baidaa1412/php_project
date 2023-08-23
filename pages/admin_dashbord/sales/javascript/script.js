@@ -63,10 +63,10 @@ function renderData(data) {
       : (categories[sale["category_name"]] = 1);
   }
 
-  todaysSales.textContent = `$${TodaysSales}`;
-  weeksSales.textContent = `$${WeeksToday}`;
-  totalSales.textContent = `$${TotalSales}`;
-  NumberOfCustomers.textContent = users;
+  todaysSales.textContent = `$${TodaysSales.toLocaleString()}`;
+  weeksSales.textContent = `$${WeeksToday.toLocaleString()}`;
+  totalSales.textContent = `$${TotalSales.toLocaleString()}`;
+  NumberOfCustomers.textContent = users.toLocaleString();
 
   populatePia(categories);
   populateGraph(data[2]);
@@ -86,13 +86,12 @@ function populateTable(data) {
     <td>${custName}</td>
      <td>${CustEmail}</td>
       <td>${adrress}</td>
-       <td>${price}</td>
+       <td>$${price.toLocaleString()}</td>
         <td class="${
       Stat ? "process" : "denied"
     }">${Stat ? "Confirmed" : "Cancelled"}
     </td>
 `;
-    console.log(newRow);
     table.append(newRow);
   }
 
