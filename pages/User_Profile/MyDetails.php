@@ -1,7 +1,9 @@
 <?php
 require("../../php/connection.php");
 
-$userId=2;
+$userId = $_SESSION["userID"];
+
+// $userId=1;
 // Query to retrieve user information
 $query = "SELECT name, email ,password ,phone_number , bio FROM user WHERE id = :id";
 $stmt = $conn->prepare($query);
@@ -10,8 +12,6 @@ $stmt->execute();
 
 // Fetch the user information
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
 
 ?>
 

@@ -1,9 +1,21 @@
 <?php    
-require("conn.php");
+require("../../php/connection.php");
+
+// Check if the user is logged in
+session_start();
+if (!isset($_SESSION["user_id"])) {
+    // Redirect to a login page or handle unauthorized access
+    header("Location: Login.php");
+    exit();
+}
+
+// Get the user ID from the session
+$userId = $_SESSION["userID"];
+
 
     // Check if form was submitted
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $userId = 2; // Set the user ID here
+        // $userId = 1; // Set the user ID here
     
         // Sanitize and retrieve the updated values from the form
         $name = $_POST["name"];
