@@ -119,49 +119,51 @@
 </head>
 
 <body>
-  <h1>Categories</h1>
-  <div class="wrapper">
-    <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
+    <h1>Categories</h1>
+<div class="wrapper">
+  <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
+  
+  <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "presentodb";
 
-    <?php
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "presentodb";
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    $sql = "SELECT * FROM category";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    $conn = new mysqli($servername, $username, $password, $dbname, 4306);
-
-    if ($conn->connect_error) {
-      die("فشل الاتصال: " . $conn->connect_error);
-    }
-    $sql = "SELECT name, image , status , imageURL FROM category";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows) {
-
-      echo '<div class="overflow">';
-      while ($row = $result->fetch_assoc()) {
-        if ($row['status'] != 0) {
-          $img = base64_encode($row['image'] ?? null);
-          echo "<div class='bloco'>";
-          echo
-          "<img src=" . $row['imageURL'] . ',' . $img . " alt='partener Image'>";
-          echo "<br>";
-          echo "<h3>" . $row["name"] . "</h3>";
-          echo "</div>";
+    if (count($result) > 0) {
+        echo '<div class="overflow">';
+        foreach ($result as $row) {
+       
+            $img = base64_encode($row['image'] ?? null);
+            $categoryId = $row['id']; // Get the category ID
+            echo "<div class='bloco cardTranstion $categoryId'>";
+          
+            echo "<img src='" . "data:image/jpeg;base64," . $img . "' alt='partner Image'>";
+            echo "<br>";
+            echo "<h3>" . $row["name"] . "</h3>";
+            echo "</div>";
         }
-      }
-      echo "</div>";
+        echo "</div>";
     } else {
-      echo "<h1 class='no-data'>Partners</h1>";
-      echo "";
+        echo "<h1 class='no-data'>Partners</h1>";
     }
+} catch (PDOException $e) {
+    echo "فشل الاتصال: " . $e->getMessage();
+}
 
-    // إغلاق الاتصال بقاعدة البيانات
-    $conn->close();
-    ?>
-    <button class="next"> <i class="fas fa-arrow-right"></i> </button>
-  </div>
+$conn = null; // Close the database connection
+?>
+
+  <button class="next" > <i class="fas fa-arrow-right"></i> </button>
+</div>
 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -218,7 +220,8 @@
         toggleNext(position);
       }
 
-    }
+}
+
 
 
 
@@ -232,9 +235,20 @@
       }
     }
 
-    window.onresize = resize;
-    doTheMagic();
-  </script>
+window.onresize = resize;
+doTheMagic();
+
+
+let cards = document.querySelectorAll('div.cardTranstion');
+
+cards.forEach(card => card.addEventListener('click', handleCardClick));
+
+function handleCardClick(event) {
+  const category = event.currentTarget.classList[2];
+  window.location.href = `./pages/products/products.php?category=${category}`;
+}
+
+ </script>
 </body>
 
-</html>
+    </html>

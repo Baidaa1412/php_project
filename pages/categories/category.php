@@ -66,57 +66,79 @@
     <title>Document</title>
 </head>
 
-<body>
+<body> <nav class="navbar">
+    <!-- LOGO -->
+    <div class="logo"><img src="../../images/logo.png" onclick="redirectToPage()" ></div>
+    <!-- NAVIGATION MENU -->
+    <ul class="nav-links">
+      <!-- USING CHECKBOX HACK -->
+      <input type="checkbox" id="checkbox_toggle" />
+      <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
-    <nav class="navbar">
-        <!-- LOGO -->
-        <div class="logo"><img src="../../images/logo.png" /></div>
-
-        <!-- NAVIGATION MENU -->
-        <ul class="nav-links">
-            <!-- USING CHECKBOX HACK -->
-            <input type="checkbox" id="checkbox_toggle" />
-            <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-
-            <!-- NAVIGATION MENUS -->
-            <div class="menu">
-                <li><a href="index.php" style="text-decoration: none;">Home</a></li>
-                <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
+      <!-- NAVIGATION MENUS -->
+      <div class="menu">
+        <li><a href="../../index.php" style="text-decoration: none;">Home</a></li>
+        <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
                 <li class="categories">
                     <a>Categories</a>
 
-                    <!-- DROPDOWN MENU -->
-                    <ul class="dropdown">
-                        <li><a href="/">Flower</a></li>
-                        <li><a href="/">Chocolate</a></li>
-                        <li><a href="/">Cake</a></li>
-                        <li><a href="/">Plants</a></li>
-                        <li><a href="/">Jewelry</a></li>
-                    </ul>
-                </li>
-                <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
-                <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
-                <li class="user">
-                    <a href="/"><i class="fas fa-user"></i></a>
-                    <!-- DROPDOWN MENU -->
-                    <ul class="dropdown">
-                        <li><a href="./pages/login-regist/signup.html">Sign up</a></li>
-                        <li><a href="./pages/login-regist/login.html">Log in</a></li>
-                        <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
-                    </ul>
-                </li>
-            </div>
-        </ul>
+          <!-- DROPDOWN MENU -->
+          <ul class="dropdown">
+          <?php
+          $servername = "localhost";
+          $username = "root";
+          $password = "";
+          $dbname = "presentodb";
+
+          $conn = new mysqli($servername, $username, $password, $dbname);
+  
+          if ($conn->connect_error) {
+              die("فشل الاتصال: " . $conn->connect_error);
+          }
+       $sql = "SELECT name FROM category";
+       $result = $conn->query($sql);
+
+       if ($result->num_rows > 0) {
+           while ($row = $result->fetch_assoc()) {
+               echo "<div class='cat'>";
+               echo "<li>" . $row["name"] . "</li>";
+               echo "</div>";
+           }
+         
+
+
+       } else {
+           echo "<h1 class='no-data'>Partners</h1>";
+           echo "";
+       }
+?>
+          
+          </ul>
+        </li>
+        <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
+        <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
+        <li class="user">
+          <a href="/"><i class="fas fa-user"></i></a>
+          <!-- DROPDOWN MENU -->
+          <ul class="dropdown">
+            <li><a href="./pages/login-regist/signup.html">Sign up</a></li>
+            <li><a href="./pages/login-regist/login.html">Log in</a></li>
+            <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
+          </ul>
+        </li>
+      </div>
+    </ul>
     </nav>
 
-    <div class="category-container">
-        <?php
-        // Assuming your database connection credentials
-        $servername = "localhost";
-        $username = "root";
-        $dbpassword = "";
-        $dbname = "presentodb";
+    
+  <div class="category-container">
+  <?php
+// Assuming your database connection credentials
+$servername = "localhost";
+$username = "root";
+$dbpassword = "";
+$dbname = "presentodb";
 
         // Create a connection
         $conn = new mysqli($servername, $username, $dbpassword, $dbname, 4306);
@@ -149,62 +171,62 @@
         ?>
     </div>
 
-    <footer>
-        <div class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-sm-4 col-xs-12">
-                        <div class="single_footer">
-                            <h4>CATEGORISE</h4>
-                            <ul>
-                                <li><a href="/">Flower</a></li>
-                                <li><a href="/">Chocolate</a></li>
-                                <li><a href="/">Cake</a></li>
-                                <li><a href="/">Plants</a></li>
-                                <li><a href="/">Jewelry</a></li>
-                            </ul>
+  <footer>
+      <div class="footer">
+        <div class="container">     
+            <div class="row">                       
+                <div class="col-lg-4 col-sm-4 col-xs-12">
+                    <div class="single_footer">
+                        <h4>CATEGORISE</h4>
+                        <ul>
+                        <li><a href="/">Flower</a></li>
+                        <li><a href="/">Chocolate</a></li>
+                        <li><a href="/">Cake</a></li>
+                        <li><a href="/">Plants</a></li>
+                         <li><a href="/">Jewelry</a></li>
+                        </ul>
+                    </div>
+                </div><!--- END COL --> 
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>GET TO KNOW US</h4>
+                        <ul>
+                        <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="../mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="../mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="../mainpage/policy.php">privacy policy  </a></li>
+                            <li><a href="../../index.php#partener">Parteners</a></li>
+                        </ul>
+                    </div>
+                </div><!--- END COL -->
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>Subscribe today</h4>
+                        <div class="signup_form">                           
+                            <form action="#" class="subscribe">
+                                <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                                <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                            </form>
                         </div>
-                    </div><!--- END COL -->
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="single_footer single_footer_address">
-                            <h4>GET TO KNOW US</h4>
-                            <ul>
-                                <li><a href="./aboutus.php" style="text-decoration: none;">About Us</a></li>
-                                <li><a href="./contactus.php">Contact Us</a></li>
-                                <li><a href="./terms.php">Terms and conditions </a></li>
-                                <li><a href="./policy.php">privacy policy </a></li>
-                                <li><a href="../../index.php#partener">Parteners</a></li>
-                            </ul>
-                        </div>
-                    </div><!--- END COL -->
-                    <div class="col-md-4 col-sm-4 col-xs-12">
-                        <div class="single_footer single_footer_address">
-                            <h4>Subscribe today</h4>
-                            <div class="signup_form">
-                                <form action="#" class="subscribe">
-                                    <input type="text" class="subscribe__input" placeholder="Enter Email Address">
-                                    <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="social_profile">
-                            <ul>
-                                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
-                                <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div><!--- END COL -->
-                </div><!--- END ROW -->
-                <div class="row">
-                    <div class="col-lg-12 col-sm-12 col-xs-12">
-                        <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
-                    </div><!--- END COL -->
-                </div><!--- END ROW -->
-            </div><!--- END CONTAINER -->
-        </div>
-    </footer>
+                    </div>
+                    <div class="social_profile">
+                        <ul>
+                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>                          
+                </div><!--- END COL -->         
+            </div><!--- END ROW --> 
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
+                </div><!--- END COL -->                 
+            </div><!--- END ROW -->                 
+        </div><!--- END CONTAINER -->
+    </div>
+</footer>
 
 </body>
 

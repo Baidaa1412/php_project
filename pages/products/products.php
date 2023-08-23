@@ -136,7 +136,7 @@ $conn->close();
 <body>
 <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src="../../images/logo.png"  /></div>
+    <div class="logo"><img src='../../images/logo.png  onclick="redirectToPage() /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -222,8 +222,8 @@ while ($row = $result->fetch_assoc()) {
     $base64Image = base64_encode($imageData);
     $productDescription = $row['description']; // Assuming you have a 'description' column in your products table
     $productPrice = $row['price']; // Assuming you have a 'price' column in your products table
-
-    echo '<div class="product-card">';
+    $productId = $row['id'];
+    echo "<div class='product-card productTranstion $productId'>";
     echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
     echo '<h2>' . $productName . '</h2>';
     echo '<p>' . $productDescription . '</p>';
@@ -235,6 +235,7 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
         </div>
+    
     </div>
 
 
@@ -294,6 +295,17 @@ while ($row = $result->fetch_assoc()) {
         </div><!--- END CONTAINER -->
     </div>
 </footer>
+<script>
+    let product = document.querySelectorAll('.productTranstion');
+
+    product.forEach(card => card.addEventListener('click', handleCardClick));
+
+    function handleCardClick(event) {
+      const product = event.currentTarget.classList[2];
+      window.location.href = `../products/products.php?product=${product}`;
+      
+    }
+  </script>
 </body> 
 
 </html>

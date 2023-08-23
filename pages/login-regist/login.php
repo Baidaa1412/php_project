@@ -24,7 +24,8 @@ $result = $conn->query($query);
 if ($result->num_rows === 1) {
     // Successful login
     // You can set sessions or cookies to manage user sessions here
-    echo "Login successful!";
+    header('Location: ../../index.php'); // Corrected redirection
+    exit();
 } else {
     // Failed login
     echo "Invalid email or password.";
