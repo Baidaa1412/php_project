@@ -4664,7 +4664,9 @@ section {
 .table-data2.table tbody td.desc {
   color: #4272d7;
 }
-
+.header__logo a img{
+  max-width:13vmin;
+}
 .table-data2 .spacer {
   height: 5px;
   background: transparent;

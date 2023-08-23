@@ -9,15 +9,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $user->id;
   $picture = $user->picture;
   $name = $user->name;
-  $Email = $user->email; `
-  $PhoneNumber = $user->PhoneNumber;
+  $Email = $user->email; 
+  $PhoneNumber = $user->phoneNumber;
   $file = explode(',' ,$picture);
   $URI = $file[0];
   $picture = base64_decode($file[1]); 
- 
+  
+
   $stmt = $conn->prepare("UPDATE user 
-  SET picture = :picture, name = :name , email = :Email, 
-      is_best_seller = :bestSeller, phoneNumber = :PhoneNumber , URI = :URI 
+  SET picture = :picture, name = :name , email = :Email,phone_number = :PhoneNumber , pictureURI = :URI 
   WHERE id = :id");
 
   $stmt->bindParam(':picture', $picture);
@@ -29,6 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->execute();
   if($stmt)
     echo json_encode('succecful');
-  else  
-    echo json_encode('failed');  
+  else
+    echo json_encode('failed'); 
 }

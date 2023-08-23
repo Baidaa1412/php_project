@@ -26,18 +26,16 @@ function renderData(data) {
   });
   populateTable(data[1]);
 }
-
 function populateTable(data) {
   userTable.innerHTML = "";
   data.forEach((e) => {
     tr = document.createElement("tr");
     tr.classList.add("tr-shadow");
     if (e["status"] != 0) {
-      console.log(e);
       tr.innerHTML = `
       <td>
         <div>
-        <img src='${e["imageURI"]},${e["image"]}'>
+        <img src='${e["pictureURI"]},${e["picture"]}'>
         </div>
       </td>
       <td>
@@ -152,20 +150,19 @@ function update(e) {
   let userId, newFile, newName, newEmail, newphoneNumber;
   userId = e.currentTarget.getAttribute("data-id");
   newFile = document.querySelector("#getFile").files[0] ?? null;
-  console.log(isFileAllowed(newFile));
   if (!isFileAllowed(newFile)) {
     location.reload();
   }
   newName = document.querySelector(".newName").value;
-  newStock = document.querySelector(".newEmail").value;
-  newPrice = document.querySelector(".newphoneNumber").value;
+  newEmail = document.querySelector(".newEmail").value;
+  newphoneNumber = document.querySelector(".newphoneNumber").value;
 
   let user = {
     id: userId,
     picture: newFile,
     name: newName,
     email: newEmail,
-    phoneNumber: newphoneNumber,
+    phoneNumber: newphoneNumber
   };
 
   getBase64(newFile).then((data) => sendData(data, user));
@@ -199,7 +196,6 @@ function getBase64(file) {
     };
   });
 }
-
 function isFileAllowed(fileInput) {
   const allowedExtensions = ["svg", "png", "jpeg", "jpg", "webp"];
   if (!fileInput) {

@@ -10,7 +10,7 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
       <!-- <to-do> ADD a link to the home page</to-do> -->
 
       <a href="../../../index.php">
-        <img src="../../../images/178x52.svg" alt="Presento" />
+        <img src="../../../images/logo.png" alt="Presento" />
       </a>
     </div>
     <div class="header__navbar">
@@ -179,3 +179,4 @@ let footer = document.querySelector('#footer').innerHTML = `
   </div>
 </div>
 </div>`;
+
