@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopping Cart & Checkout</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+  body {
+    background-color: #f4f4f4;
+  }
+  .container {
+    max-width: 800px;
+    margin-top: 50px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    color: #30999B;
+  }
+  .list-group-item {
+    border-color: #30999B;
+  }
+  .btn-primary {
+    background-color: #30999B;
+    border: none;
+  }
+  .btn-primary:hover {
+    background-color: #257d80;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Your Cart</h2>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-md-3">
+                <img src="../../images/naffeseh.png" alt="Product 1" class="img-fluid">
+              </div>
+              <div class="col-md-6">
+                <h4>Product 1</h4>
+                <p class="mb-0">$19.99</p>
+              </div>
+              <div class="col-md-3">
+                <input type="number" class="form-control" value="1" min="1">
+                <button class="btn btn-sm btn-danger mt-2">Remove</button>
+              </div>
+            </div>
+          </li>
+          <!-- Add more cart items here -->
+        </ul>
+        <p class="mt-3">Total Items: <span id="total-items">1</span></p>
+        <p>Sub Total: <span id="sub-total">$19.99</span></p>
+      </div>
+      <div class="col-md-6">
+        <h2>Checkout</h2>
+        <form>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Phone Number</label>
+            <input type="phone number" class="form-control" id="phone number" required>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" required>
+          </div>
+          <div class="form-group">
+            <label for="payment">Payment Method</label>
+            <select class="form-control" id="payment" required>
+              <option value="credit">Cash</option>
+              
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
