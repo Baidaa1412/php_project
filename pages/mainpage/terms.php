@@ -53,16 +53,8 @@
         <li><a href="./aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
-          <a >Categories</a>
+        <a href="../../pages/categories/category.php" style="text-decoration:none">Categories</a>
 
-          <!-- DROPDOWN MENU -->
-          <ul class="dropdown">
-            <li><a href="/">Flower</a></li>
-            <li><a href="/">Chocolate</a></li>
-            <li><a href="/">Cake</a></li>
-            <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li>
-          </ul>
         </li>
         <li><a href="../mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>

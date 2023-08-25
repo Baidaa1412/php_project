@@ -78,8 +78,7 @@
         <li><a href="./aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
-          <a >Categories</a>
-
+        <a href="../../pages/categories/category.php" style="text-decoration:none">Categories</a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li><a href="/">Flower</a></li>

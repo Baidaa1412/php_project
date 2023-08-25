@@ -31,26 +31,29 @@
         <li><a href="./aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
-          <a href="/" style="text-decoration: none;" >Categories</a>
+        <a href="../../pages/categories/category.php" style="text-decoration:none">Categories</a>
 
-          <!-- DROPDOWN MENU -->
-          <ul class="dropdown">
-            <li><a href="/">Flower</a></li>
-            <li><a href="/">Chocolate</a></li>
-            <li><a href="/">Cake</a></li>
-            <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li>
-          </ul>
         </li>
         <li><a href="../mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
-        <li class="user">
-          <a href="/"><i class="fas fa-user"></i></a>
+        <li class="user" id="userDropdown">
+          <a><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <li><a href="/">Sign up</a></li>
-            <li><a href="/">Log in</a></li>
-            <li><a href="/">Contact us</a></li>
+            <li><?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION['user'])) {
+                  $loggedInUser = $_SESSION['user'];
+                  echo " <a href='./pages/User_Profile/Profile.php'>Profile</a> <a href='./pages/login-regist/logout.php'>Log Out</a>";
+                } else {
+                  echo "<a href='./pages/login-regist/signup.html'>Sign up</a><br>";
+                  echo "<a href='./pages/login-regist/login.html'>Log in</a>";
+                }
+                ?></li>
+          </ul>
+        </li>
           </ul>
         </li>
       </div>
@@ -143,4 +146,6 @@ At Presento we are dedicated to meeting our customers' expectations and providin
 function redirectToPage() {
     window.location.href = "../../index.php";
   }
+  </script>
+  <script src="../../main.js">
   </script>

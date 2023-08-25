@@ -82,7 +82,6 @@ box-sizing:border-box;
 }
 
 .next :hover{
- font-size:larger;
  outline: none;
 
 }

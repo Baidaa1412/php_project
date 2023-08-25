@@ -1,3 +1,5 @@
+<?php require("../../php/connection.php") ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,13 +36,12 @@
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
           <?php
-require("conn.php");
-
+// require("../php/connection.php");
 try {
   $conn = new PDO("mysql:host=localhost;dbname=presentodb", "root","");
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-  $sql = "SELECT name FROM category";
+  $sql = "SELECT name FROM category limit 5";
   $stmt = $conn->prepare($sql);
   $stmt->execute();
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -58,29 +59,35 @@ try {
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
 }
-
-$conn = null; // Close the database connection
+// Close the database connection
 ?>
 
           </ul>
         </li>
-        <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
+        <li><a href="../../pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li><a href="../pages/login-regist/signup.html">Sign up</a></li>
-            <li><a href="./pages/login-regist/login.html">Log in</a></li>
-            <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
-          </ul>
+            <?php
+session_start();
+
+// Check if the user is logged in
+if (isset($_SESSION['user'])) {
+    $loggedInUser = $_SESSION['user'];
+    echo " <a href='./pages/User_Profile/Profile.php'>Profile</a> <a href='./pages/login-regist/logout.php'>Log Out</a>";
+} else {echo "<a href='./pages/login-regist/signup.html'>Sign up</a><br>";
+    echo "<a href='./pages/login-regist/login.html'>Log in</a>";
+}
+?>
         </li>
       </div>
     </ul>
   </nav>
   <section>
   <?php
-require("../../php/connection.php");
 
 if (isset($_GET['product']) && is_numeric($_GET['product'])) {
     $productId = $_GET['product'];

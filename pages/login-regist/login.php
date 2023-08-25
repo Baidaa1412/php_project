@@ -1,4 +1,7 @@
 <?php
+// Start the session
+session_start();
+
 // Assuming your database connection credentials
 $servername = "localhost";
 $username = "root";
@@ -13,22 +16,24 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Retrieve user input
-$email = $_POST['email'];
-$password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve user input
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
-// Query to check if the user exists in the database
-$query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
-$result = $conn->query($query);
+    // Query to check if the user exists in the database
+    $query = "SELECT * FROM user WHERE email = '$email' AND password = '$password'";
+    $result = $conn->query($query);
 
-if ($result->num_rows === 1) {
-    // Successful login
-    // You can set sessions or cookies to manage user sessions here
-    header('Location: ../../index.php'); // Corrected redirection
-    exit();
-} else {
-    // Failed login
-    echo "Invalid email or password.";
+    if ($result->num_rows === 1) {
+        // Successful login
+        $_SESSION['user'] = $email;
+        header('Location: ../../index.php'); // Corrected redirection
+        exit();
+    } else {
+        // Failed login
+        echo "Invalid email or password.";
+    }
 }
 
 // Close the database connection
