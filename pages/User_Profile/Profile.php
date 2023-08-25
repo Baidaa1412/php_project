@@ -1,7 +1,11 @@
 <?php
 require("../../php/connection.php");
 
-$userId=2;
+$userId = $_SESSION["userID"];
+
+// $userId=1;
+// session_start();
+// $id= $_SESSION("userID");
 // Query to retrieve user information
 $query = "SELECT name, email , phone_number	, bio FROM user WHERE id = :id";
 $stmt = $conn->prepare($query);
