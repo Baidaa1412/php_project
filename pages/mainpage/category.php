@@ -124,7 +124,7 @@
   <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
   
   <?php
-$servername = "localhost";
+$servername = "localhost:4306";
 $username = "root";
 $password = "";
 $dbname = "presentodb";

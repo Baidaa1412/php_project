@@ -2749,7 +2749,7 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
   .header__logo a img{
     max-width:13vmin;
   }
-  
+
   .header__navbar ul {
     display: -webkit-box;
     display: -webkit-flex;

@@ -68,7 +68,7 @@
   <h1>Best Selling Flowers & Gifts</h1>
   <div class="cont2">
     <?php
-    $servername = "localhost";
+    $servername = "localhost:4306";
     $username = "root";
     $password = "";
     $dbname = "presentodb";

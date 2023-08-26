@@ -10,7 +10,7 @@
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <title>Document</title>
+  <title>Home</title>
 </head>
 
 <body>
@@ -34,27 +34,15 @@
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <?php
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "presentodb";
-
-<<<<<<< HEAD
-            $conn = new mysqli($servername, $username, $password, $dbname, 4306);
+            <?php 
+            include_once './php/connection2.php';
 
             if ($conn->connect_error) {
-=======
-          $conn = new mysqli($servername, $username, $password, $dbname);
-  
-          if ($conn->connect_error) {
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
-              die("فشل الاتصال: " . $conn->connect_error);
+              die("connection failed " . $conn->connect_error);
             }
             $sql = "SELECT name FROM category";
             $result = $conn->query($sql);
 
-<<<<<<< HEAD
             if ($result->num_rows > 0) {
               while ($row = $result->fetch_assoc()) {
                 echo "<div class='cat'>";
@@ -66,28 +54,7 @@
               echo "";
             }
             ?>
-            <!-- <li><a href="/">Flower</a></li>
-            <li><a href="/">Chocolate</a></li>
-            <li><a href="/">Cake</a></li>
-            <li><a href="/">Plants</a></li>
-            <li><a href="/">Jewelry</a></li> -->
-=======
-       if ($result->num_rows > 0) {
-           while ($row = $result->fetch_assoc()) {
-               echo "<div class='cat'>";
-               echo "<li>" . $row["name"] . "</li>";
-               echo "</div>";
-           }
-         
 
-
-       } else {
-           echo "<h1 class='no-data'>Partners</h1>";
-           echo "";
-       }
-?>
-          
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
           </ul>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
@@ -114,41 +81,24 @@
         </ol>
         <div class="carousel-inner">
           <div class="carousel-item active">
-<<<<<<< HEAD
-            <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><button id="but1">
-              SHOP NOW
-            </button>
-=======
             <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><a href="./pages/categories/category.php">
-  <button id="but1">
-    SHOP NOW
-  </button>
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
+              <button id="but1">
+                SHOP NOW
+              </button>
           </div>
 
           <div class="carousel-item">
-<<<<<<< HEAD
-            <img class="d-block w-100" src='./images/sliderimg2.png' alt="Second slide"><button id="but2">
-              GIFT NOW
-            </button>
+            <img class="d-block w-100" src='./images/sliderimg2.png' alt="Second slide"><a href="./pages/categories/category.php">
+              <button id="but2">
+                Gift NOW
+              </button>
           </div>
           <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide"> <button id="but3">
-              SHOP NOW
-            </button>
-=======
-            <img class="d-block w-100" src='./images/sliderimg2.png'  alt="Second slide" ><a href="./pages/categories/category.php">
-  <button id="but2">
-    Gift NOW
-  </button>
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide" ><a href="./pages/categories/category.php">
-  <button id="but3">
-    SHOP NOW
-  </button>
-</a>
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
+            <img class="d-block w-100" src='./images/sliderimd3.png' alt="Third slide"><a href="./pages/categories/category.php">
+              <button id="but3">
+                SHOP NOW
+              </button>
+            </a>
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -160,21 +110,11 @@
           <span class="sr-only">Next</span>
         </a>
       </div>
-<<<<<<< HEAD
     </section>
 
     <section>
       <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div>
 
-      <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
-
-    </section>
-=======
-      </section>
-      
-    <section> 
- <div id="partener"> <?php include './pages/mainpage/category.php' ?> </div> 
- 
 
       <img src="./images/White Beige Minimalist Elegant Classy Book Review Blog Banner (3).png"><a href="./pages/categories/category.php"><button id="but6" style="
   background-color: rgb(1, 139, 139);
@@ -188,42 +128,16 @@
       width: 10%;
       cursor: pointer;
       border-radius: 5px;
-    font-weight: 600;"
-            >
+    font-weight: 600;">
 
-      
-            SHOP NOW
-          </button></a>
- <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
-      
-      </section>
-   
 
-</div>
-      
-      <footer>
-      <div class="footer">
-        <div class="container">     
-            <div class="row">                       
-                <div class="col-lg-4 col-sm-4 col-xs-12">
-                    <div class="single_footer">
-                        <h4>CATEGORISE</h4>
-                        <ul>
-                        <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "presentodb";
+          SHOP NOW
+        </button></a>
+      <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
+    </section>
 
-    $sql = "SELECT name FROM category limit 5";
-    $stmt = $pdo->query($sql);
 
-<<<<<<< HEAD
   </div>
 
   <footer>
@@ -235,31 +149,32 @@ try {
               <h4>CATEGORISE</h4>
               <ul>
                 <?php
-                $servername = "localhost";
+                $servername = "localhost:4306";
                 $username = "root";
                 $password = "";
                 $dbname = "presentodb";
 
-                $conn = new mysqli($servername, $username, $password, $dbname, 4306);
+                try {
+                  $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+                  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                if ($conn->connect_error) {
-                  die("فشل الاتصال: " . $conn->connect_error);
-                }
-                $sql = "SELECT name FROM category";
-                $result = $conn->query($sql);
+                  $sql = "SELECT name FROM category limit 5";
+                  $stmt = $pdo->query($sql);
 
-                if ($result->num_rows > 0) {
-                  while ($row = $result->fetch_assoc()) {
-                    echo "<div class='cat'>";
-                    echo "<li>" . "<a>" . $row["name"] . "</li>" . "</a>";
-
-                    echo "</div>";
+                  if ($stmt->rowCount() > 0) {
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                      echo "<div class='cat'>";
+                      echo "<li><a>" . $row["name"] . "</a></li>";
+                      echo "</div>";
+                    }
+                  } else {
+                    echo "<h1 class='no-data'>Partners</h1>";
                   }
-                } else {
-                  echo "<h1 class='no-data'>Partners</h1>";
-                  echo "";
+                } catch (PDOException $e) {
+                  echo "فشل الاتصال: " . $e->getMessage();
                 }
                 ?>
+
             </div>
           </div><!--- END COL -->
           <div class="col-md-4 col-sm-4 col-xs-12">
@@ -300,62 +215,6 @@ try {
           </div><!--- END COL -->
         </div><!--- END ROW -->
       </div><!--- END CONTAINER -->
-=======
-    if ($stmt->rowCount() > 0) {
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            echo "<div class='cat'>";
-            echo "<li><a>" . $row["name"] . "</a></li>";
-            echo "</div>"; 
-        }
-    } else {
-        echo "<h1 class='no-data'>Partners</h1>";
-    }
-} catch (PDOException $e) {
-    echo "فشل الاتصال: " . $e->getMessage();
-}
-?>
-
-                    </div>
-                </div><!--- END COL --> 
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="single_footer single_footer_address">
-                        <h4>GET TO KNOW US</h4>
-                        <ul>
-                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
-                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
-                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
-                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
-                            <li><a href="#partener">Paterners</a></li>
-                        </ul>
-                    </div>
-                </div><!--- END COL -->
-                <div class="col-md-4 col-sm-4 col-xs-12">
-                    <div class="single_footer single_footer_address">
-                        <h4>Subscribe today</h4>
-                        <div class="signup_form">                           
-                            <form action="#" class="subscribe">
-                                <input type="text" class="subscribe__input" placeholder="Enter Email Address">
-                                <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="social_profile">
-                        <ul>
-                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
-                        </ul>
-                    </div>                          
-                </div><!--- END COL -->         
-            </div><!--- END ROW --> 
-            <div class="row">
-                <div class="col-lg-12 col-sm-12 col-xs-12">
-                    <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
-                </div><!--- END COL -->                 
-            </div><!--- END ROW -->                 
-        </div><!--- END CONTAINER -->
->>>>>>> ab21e3872941af09e6b601193fa9d8701eaf5b25
     </div>
   </footer>
 

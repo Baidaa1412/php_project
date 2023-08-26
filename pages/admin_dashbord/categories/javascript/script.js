@@ -3,6 +3,24 @@ let DyName = document.querySelectorAll(".dyName");
 let DyEmail = document.querySelectorAll(".dyEmail");
 let topCategory = document.querySelector("#topCategory");
 let CategoriesTable = document.querySelector("#CategoriesTable");
+checkCred();
+function checkCred() {
+  fetch("../checkCreds.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      if (data === "failed")  window.location.href = "../login";
+      ;
+    });
+}
+
 function fetchData() {
   fetch("./php/getCategoryData.php", {
     method: "POST",
@@ -83,7 +101,8 @@ function pouplateBarGraph(data) {
 }
 
 function populateCategoriesTable(data) {
-  data.slice(0, 8).forEach((e) => {
+  topCategory = ' ';
+    data.slice(0, 8).forEach((e) => {
     let tr = document.createElement("tr");
     tr.innerHTML = `<td>${e.category_name}</td>
     <td class="text-right">${e.total_sales}</td>`;
@@ -267,11 +286,8 @@ function getBase64(file) {
   });
 }
 
-
-
 let addItemBtn = document.querySelector(".addItemBtn");
 addItemBtn.addEventListener("click", addCategory);
-
 
 function addCategory(e) {
   if (document.querySelectorAll(".newCategory").length < 1) {
@@ -311,18 +327,17 @@ function addCategory(e) {
 }
 
 function insertcategory(e) {
-  let newFile, newName
+  let newFile, newName;
   newFile = document.querySelector(".newCategory #getFile").files[0] ?? null;
   console.log(isFileAllowed(newFile));
   if (!isFileAllowed(newFile)) {
     location.reload();
   }
   newName = document.querySelector(".newCategory .newName").value;
-  
 
   let category = {
     picture: newFile,
-    name: newName
+    name: newName,
   };
   getBase64(newFile).then((data) => appendDB(data, category));
 }
@@ -339,4 +354,17 @@ function appendDB(data, category) {
     .then((data) => {
       if (data !== "failed") fetchData();
     });
+}
+document.querySelector(".logOut").addEventListener("click", logout);
+
+function logout(e) {
+  fetch("../logout.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  }).then((d) => {
+    window.location.href = "../login";
+  });
 }

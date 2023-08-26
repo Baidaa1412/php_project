@@ -59,7 +59,7 @@
 <body>
     <div  class="container">
         <?php
-        $servername = "localhost";
+        $servername = "localhost:4306";
         $username = "root";
         $password = "";
         $dbname = "presentodb";
