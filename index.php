@@ -33,7 +33,7 @@
           <a href="./pages/categories/category.php" style="text-decoration:none">Categories</a>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
-        <li><i class="fas fa-shopping-cart"></i></li>
+        <li onclick="window.location.href = './pages/cart/cart.html'"><i class="fas fa-shopping-cart"></i></li>
         <li class="user" id="userDropdown">
           <a><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->

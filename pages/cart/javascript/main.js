@@ -32,7 +32,7 @@ function renderProducts(data){
         <p class="mb-0">$${e['price']}</p>
       </div>
       <div class="col-md-3">
-        <input type="number" class="form-control" value="${e['quantity']}" min="1">
+        <input type="number" class="qunatityInp form-control" value="${e['quantity']}" min="1">
         <button class="remove btn btn-sm btn-danger mt-2" data-id="${e['id']}">Remove</button>
       </div>
     </div>
@@ -41,8 +41,29 @@ function renderProducts(data){
     document.querySelector('#sub-total').textContent = `${total_price}`;
     div.append(li);
   });
-  document.querySelectorAll('.remove').forEach(e=>e.addEventListener('click') , handleRemove)
+  document.querySelectorAll('.remove').forEach(e=>e.addEventListener('click' , handleRemove)) ;
+  document.querySelectorAll('.qunatityInp').forEach(e=>{
+    e.addEventListener('onchange' , handleQuantityChange)
+  })
 }
+form = document.querySelector('.form');
+form.addEventListener('submit' , handleOrder)
+function handleQuantityChange(e){
+
+}
+function handleOrder(e){
+  e.preventDefault();   
+  fetch("./php/placeOrder.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(form.address.value),
+  })
+    .then((r) => r.json())
+    .then((data) => console.log(data));
+}
+
 
 
 function handleRemove(e){
