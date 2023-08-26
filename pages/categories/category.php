@@ -80,41 +80,9 @@
         <li><a href="../../index.php" style="text-decoration: none;">Home</a></li>
         <li><a href="../mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
-                <li class="categories">
-                    <a>Categories</a>
-
-          <!-- DROPDOWN MENU -->
-          <ul class="dropdown">
-          <?php
-          $servername = "localhost";
-          $username = "root";
-          $password = "";
-          $dbname = "presentodb";
-
-          $conn = new mysqli($servername, $username, $password, $dbname);
-  
-          if ($conn->connect_error) {
-              die("فشل الاتصال: " . $conn->connect_error);
-          }
-       $sql = "SELECT name FROM category";
-       $result = $conn->query($sql);
-
-       if ($result->num_rows > 0) {
-           while ($row = $result->fetch_assoc()) {
-               echo "<div class='cat'>";
-               echo "<li>" . $row["name"] . "</li>";
-               echo "</div>";
-           }
-         
-
-
-       } else {
-           echo "<h1 class='no-data'>Partners</h1>";
-           echo "";
-       }
-?>
+        <li class="categories">
+          <a href="./category.php" style="text-decoration: none;">Categories</a>        
           
-          </ul>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>

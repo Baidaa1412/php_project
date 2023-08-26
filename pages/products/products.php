@@ -76,6 +76,7 @@ $conn->close();
     background-color: #FFFFFF;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .product-card img {
@@ -136,7 +137,7 @@ $conn->close();
 <body>
 <nav class="navbar">
     <!-- LOGO -->
-    <div class="logo"><img src='../../images/logo.png  onclick="redirectToPage() /></div>
+    <div class="logo"><img src='../../images/logo.png'  onclick="redirectToPage()"' /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -146,8 +147,8 @@ $conn->close();
 
       <!-- NAVIGATION MENUS -->
       <div class="menu">
-        <li><a href="index.php" style="text-decoration: none;">Home</a></li>
-        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
+        <li><a href="../../index.php" style="text-decoration: none;">Home</a></li>
+        <li><a href="../../pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
           <a >Categories</a>
@@ -159,17 +160,17 @@ $conn->close();
             <li><a href="/">Cake</a></li>
             <li><a href="/">Plants</a></li>
             <li><a href="/">Jewelry</a></li>
-          </ul>
+            </ul>
         </li>
-        <li><a href="/"><i class="fa-solid fa-location-dot"></i></a></li>
+        <li><a href="../../pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
         <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
             <li><a href="./pages/login-regist/signup.html">Sign up</a></li>
-            <li><a href="./pages/login-regist/login.html">Log in</a></li>
-            <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
+            <li><a href="../login-regist/login.php">Log in</a></li>
+            
           </ul>
         </li>
       </div>
@@ -223,17 +224,32 @@ while ($row = $result->fetch_assoc()) {
     $productDescription = $row['description']; // Assuming you have a 'description' column in your products table
     $productPrice = $row['price']; // Assuming you have a 'price' column in your products table
     $productId = $row['id'];
-    echo "<div class='product-card productTranstion $productId'>";
-    echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
-    echo '<h2>' . $productName . '</h2>';
-    echo '<p>' . $productDescription . '</p>';
-    echo '<p>Price: JD' . $productPrice . '</p>';
-    echo '<div class="add-to-cart-container">';
-    echo '<button class="add-to-cart-button">Add to Cart</button>';
-    echo '</div>';
-    echo '</div>';
+ 
+        
+        echo "<div class='product-card productTranstion $productId'>";
+        // إضافة معرّف المنتج كبيانات مخصصة داخل العنصر
+        echo "<div class='product-info' data-product-id='$productId'>";
+        echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
+        echo '<h2>' . $productName . '</h2>';
+        echo '<p>' . $productDescription . '</p>';
+        echo '<p>Price: JD' . $productPrice . '</p>';
+        echo '</div>';
+        echo '<div class="add-to-cart-container">';
+        echo '<button class="add-to-cart-button">Add to Cart</button>';
+        echo '</div>';
+        echo '</div>';
+    }
+    ?>
+    
+
+<?php
+while ($row = $result->fetch_assoc()) {
+    // ... (متغيرات المنتج)
+    
+   
 }
 ?>
+
         </div>
     
     </div>
@@ -302,7 +318,7 @@ while ($row = $result->fetch_assoc()) {
 
     function handleCardClick(event) {
       const product = event.currentTarget.classList[2];
-      window.location.href = `../products/products.php?product=${product}`;
+      window.location.href = `../Productreviwe/product.php?product=${product}`;
       
     }
   </script>

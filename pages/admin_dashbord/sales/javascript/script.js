@@ -51,7 +51,7 @@ function renderData(data) {
   const currentDate = new Date();
   currentDate.setHours(0, 0, 0, 0);
 
-  let TodaysSales = 0;
+  let today = 0;
   let WeeksToday = 0;
   let TotalSales = 0;
   let users = 0;
@@ -64,21 +64,22 @@ function renderData(data) {
     let saleDate = new Date(sale["date_of_order"]);
 
     if (saleDate.toDateString() === currentDate.toDateString()) {
-      TodaysSales += sale["product_price"];
+      today -= -sale["product_price"];
     }
 
     if (saleDate >= startOfWeek && saleDate <= endOfWeek) {
-      WeeksToday += sale["product_price"];
+      WeeksToday -= -sale["product_price"];
     }
 
-    TotalSales += sale["product_price"];
+    TotalSales -= -sale["product_price"];
     users = users > sale["order_id"] ? users : sale["order_id"];
     categories[sale["category_name"]]
       ? categories[sale["category_name"]]++
       : (categories[sale["category_name"]] = 1);
   }
+  console.log(today , weeksSales , TotalSales);
 
-  todaysSales.textContent = `$${TodaysSales.toLocaleString()}`;
+  todaysSales.textContent = `$${today.toLocaleString()}`;
   weeksSales.textContent = `$${WeeksToday.toLocaleString()}`;
   totalSales.textContent = `$${TotalSales.toLocaleString()}`;
   NumberOfCustomers.textContent = users.toLocaleString();

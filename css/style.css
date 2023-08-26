@@ -52,24 +52,24 @@ li {
 
 /* NAVBAR MENU */
 .menu {
-  
+    position:sticky;
+
   display: flex;
   gap: 1em;
   font-size: 18px;
   margin-left: 60%;
+  z-index: 1;
+  
+  
 }
 
-.menu li:hover {
+/* .menu li:hover {
   background-color: #4c9e9e;
   height: 40px;
   border-radius: 5px;
-  transition: 30s ease;
   text-decoration: none;
   text-shadow: #01c7e9;
-}
-.menu a :hover {
-  text-decoration: none;
-}
+} */
 
 .menu li {
   padding: 5px 14px;
@@ -89,16 +89,8 @@ li {
   width: 8em;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2); /* إضافة تأثير الظل هنا */
   z-index: 1;
-  margin-top: 10%;
-  transform: scale(1.2);
-  transition: transform 2s ease-in-out;
-
-}
-.categories:hover .dropdown,
-.user:hover .dropdown {
-display: block;
-transform: scale(1.2);
-
+  margin-bottom:-37%;
+  margin-left:-40%;
 }
 
 
@@ -114,7 +106,7 @@ input[type=checkbox] {
 .hamburger {
   display: none;
   font-size: 24px;
-margin-right: -50%;
+  user-select: none;
   
   
 }
@@ -142,30 +134,6 @@ margin-right: -50%;
   display: flex;
 }
 
-a,
-a:hover,
-a:focus,
-a:active {
-  text-decoration: none;
-  outline: none;
-}
-
-a,
-a:active,
-a:focus {
-  color: #333;
-  text-decoration: none;
-  transition-timing-function: ease-in-out;
-  -ms-transition-timing-function: ease-in-out;
-  -moz-transition-timing-function: ease-in-out;
-  -webkit-transition-timing-function: ease-in-out;
-  -o-transition-timing-function: ease-in-out;
-  transition-duration: .2s;
-  -ms-transition-duration: .2s;
-  -moz-transition-duration: .2s;
-  -webkit-transition-duration: .2s;
-  -o-transition-duration: .2s;
-}
 
 ul {
   margin: 0;
@@ -473,17 +441,12 @@ text-decoration: none;}
      display:none;
      position: absolute;
      background-color:teal;
-     right: 0;
-     left: 0;
      text-align: center;
      padding: 16px 0;
-     z-index: 1;
    }
  
    .menu li:hover {
-     display: inline-block;
      background-color:#4c9e9e;
-     transition: 0.3s ease;
    }
  
    .menu li + li {
@@ -496,13 +459,13 @@ text-decoration: none;}
  
    .hamburger {
      display: block;
-     margin-left: 20%;
+     margin-right: 20%;
    }
  
    .dropdown {
+     left: 10%;
      top: 30px;
      transform: translateX(35%);
-     z-index: 1;
 
    }
  

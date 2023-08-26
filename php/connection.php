@@ -6,3 +6,4 @@ try{
 } catch(PDOException $e) {
   echo "database error" . $e->getMessage();
 }
+?>

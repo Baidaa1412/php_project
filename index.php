@@ -25,55 +25,42 @@
       <label for="checkbox_toggle" class="hamburger">&#9776;</label>
 
       <!-- NAVIGATION MENUS -->
-      <div class="menu">
+      <div class="menu ">
         <li><a href="index.php" style="text-decoration: none;">Home</a></li>
         <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About</a></li>
 
         <li class="categories">
-          <a>Categories</a>
-
-          <!-- DROPDOWN MENU -->
-          <ul class="dropdown">
-            <?php 
-            include_once './php/connection2.php';
-
-            if ($conn->connect_error) {
-              die("connection failed " . $conn->connect_error);
-            }
-            $sql = "SELECT name FROM category";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-              while ($row = $result->fetch_assoc()) {
-                echo "<div class='cat'>";
-                echo "<li>" . $row["name"] . "</li>";
-                echo "</div>";
-              }
-            } else {
-              echo "<h1 class='no-data'>Partners</h1>";
-              echo "";
-            }
-            ?>
-
-          </ul>
+          <a href="./pages/categories/category.php" style="text-decoration:none">Categories</a>
         </li>
         <li><a href="./pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
-        <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
-        <li class="user">
-          <a href="/"><i class="fas fa-user"></i></a>
+        <li><i class="fas fa-shopping-cart"></i></li>
+        <li class="user" id="userDropdown">
+          <a><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-            <li><a href="./pages/login-regist/signup.html">Sign up</a></li>
-            <li><a href="./pages/login-regist/login.html">Log in</a></li>
-            <li><a href="./pages/example/mainpage/contactus.php">Contact us</a></li>
+            <li><?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION['user'])) {
+                  $loggedInUser = $_SESSION['user'];
+                  echo " <a href='./pages/User_Profile/Profile.php'>Profile</a> <a href='./pages/login-regist/logout.php'>Log Out</a>";
+                } else {
+                  echo "<a href='./pages/login-regist/signup.html'>Sign up</a><br>";
+                  echo "<a href='./pages/login-regist/login.html'>Log in</a>";
+                }
+                ?></li>
           </ul>
         </li>
-      </div>
+
+    </ul>
+
+    </div>
     </ul>
   </nav>
   <div class="page_wraper">
-    <section class="maincon">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <section class="maincon">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -82,14 +69,14 @@
         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="d-block w-100" src='./images/sliderimg1.png' alt="First slide"><a href="./pages/categories/category.php">
-              <button id="but1">
+              <button id="but1" style="width:15%; height:10%; color:white; margin-left:65%;">
                 SHOP NOW
               </button>
           </div>
 
           <div class="carousel-item">
             <img class="d-block w-100" src='./images/sliderimg2.png' alt="Second slide"><a href="./pages/categories/category.php">
-              <button id="but2">
+              <button id="but2" style="width:15%; height:10%; color:white">
                 Gift NOW
               </button>
           </div>
@@ -133,7 +120,7 @@
 
           SHOP NOW
         </button></a>
-      <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
+      <div id="partener"> <?phlp include './pages/mainpage/best.php' ?> </div>
 
     </section>
 
@@ -149,80 +136,80 @@
               <h4>CATEGORISE</h4>
               <ul>
                 <?php
-                $servername = "localhost:4306";
+                $servername = "localhost";
                 $username = "root";
                 $password = "";
                 $dbname = "presentodb";
 
-                try {
-                  $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                  $sql = "SELECT name FROM category limit 5";
-                  $stmt = $pdo->query($sql);
+    $sql = "SELECT name FROM category limit 5";
+    $stmt = $pdo->query($sql);
 
-                  if ($stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                      echo "<div class='cat'>";
-                      echo "<li><a>" . $row["name"] . "</a></li>";
-                      echo "</div>";
-                    }
-                  } else {
-                    echo "<h1 class='no-data'>Partners</h1>";
-                  }
-                } catch (PDOException $e) {
-                  echo "فشل الاتصال: " . $e->getMessage();
-                }
-                ?>
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='cat'>";
+            echo "<li><a>" . $row["name"] . "</a></li>";
+            echo "</div>"; 
+        }
+    } else {
+        echo "<h1 class='no-data'>Partners</h1>";
+    }
+} catch (PDOException $e) {
+    echo "فشل الاتصال: " . $e->getMessage();
+}
+?>
 
-            </div>
-          </div><!--- END COL -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single_footer single_footer_address">
-              <h4>GET TO KNOW US</h4>
-              <ul>
-                <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
-                <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
-                <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
-                <li><a href="./pages/mainpage/policy.php">privacy policy </a></li>
-                <li><a href="#partener">Paterners</a></li>
-              </ul>
-            </div>
-          </div><!--- END COL -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single_footer single_footer_address">
-              <h4>Subscribe today</h4>
-              <div class="signup_form">
-                <form action="#" class="subscribe">
-                  <input type="text" class="subscribe__input" placeholder="Enter Email Address">
-                  <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
-                </form>
-              </div>
-            </div>
-            <div class="social_profile">
-              <ul>
-                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
-                <li><a href=""><i class="fab fa-instagram"></i></a></li>
-              </ul>
-            </div>
-          </div><!--- END COL -->
-        </div><!--- END ROW -->
-        <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-            <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
-          </div><!--- END COL -->
-        </div><!--- END ROW -->
-      </div><!--- END CONTAINER -->
+                    </div>
+                </div><!--- END COL --> 
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>GET TO KNOW US</h4>
+                        <ul>
+                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
+                            <li><a href="#partener">Paterners</a></li>
+                        </ul>
+                    </div>
+                </div><!--- END COL -->
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>Subscribe today</h4>
+                        <div class="signup_form">                           
+                            <form action="#" class="subscribe">
+                                <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                                <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="social_profile">
+                        <ul>
+                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>                          
+                </div><!--- END COL -->         
+            </div><!--- END ROW --> 
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
+                </div><!--- END COL -->                 
+            </div><!--- END ROW -->                 
+        </div><!--- END CONTAINER -->
     </div>
   </footer>
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="./javascript/main.js"></script>
 
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="./javascript/main.js" ></script>
 </html>

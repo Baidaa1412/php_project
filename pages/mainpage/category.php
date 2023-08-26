@@ -86,9 +86,8 @@
 
     }
 
-    .next :hover {
-      font-size: larger;
-      outline: none;
+.next :hover{
+ outline: none;
 
     }
 
