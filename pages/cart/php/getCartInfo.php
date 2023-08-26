@@ -2,7 +2,8 @@
 include_once '../../../php/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $userId = 1;
+  session_start();
+  $userId = $_SESSION['userId'];
   $stmt = $conn->prepare("SELECT id FROM cart WHERE user_id = :user_id");
   $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
 
