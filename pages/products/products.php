@@ -158,7 +158,8 @@ if ($result) {
             </ul>
         </li>
         <li><a href="../../pages/mainpage/contactus.php"><i class="fa-solid fa-headset"></i></a></li>
-        <li><a href="/"><i class="fas fa-shopping-cart"></i></a></li>
+        <li><a href="/" onclick="window.location.href = '../../pages/cart/cart.html'"
+><i class="fas fa-shopping-cart"></i></a></li>
         <li class="user">
           <a href="/"><i class="fas fa-user"></i></a>
           <!-- DROPDOWN MENU -->
