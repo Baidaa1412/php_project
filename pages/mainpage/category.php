@@ -86,8 +86,8 @@
 
     }
 
-.next :hover{
- outline: none;
+    .next :hover {
+      outline: none;
 
     }
 
@@ -118,51 +118,46 @@
 </head>
 
 <body>
-    <h1>Categories</h1>
-<div class="wrapper">
-  <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
-  
-  <?php
-$servername = "localhost:4306";
-$username = "root";
-$password = "";
-$dbname = "presentodb";
+  <h1>Categories</h1>
+  <div class="wrapper">
+    <button class="previous"> <i class="fas fa-arrow-left"></i> </button>
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $sql = "SELECT * FROM category";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    <?php
+    include_once './php/connection.php';
 
-    if (count($result) > 0) {
+    try {
+      $sql = "SELECT * FROM category";
+      $stmt = $conn->prepare($sql);
+      $stmt->execute();
+      $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      if (count($result) > 0) {
         echo '<div class="overflow">';
         foreach ($result as $row) {
-       
+          if($row['status'] != 0){
             $img = base64_encode($row['image'] ?? null);
-            $categoryId = $row['id']; // Get the category ID
+            $categoryId = $row['id']; 
             echo "<div class='bloco cardTranstion $categoryId'>";
-          
-            echo "<img src='" . "data:image/jpeg;base64," . $img . "' alt='partner Image'>";
+  
+            echo "<img src='" . $row['imageURL'] .','. $img . "' alt='partner Image'>";
             echo "<br>";
             echo "<h3>" . $row["name"] . "</h3>";
             echo "</div>";
+          }
         }
         echo "</div>";
-    } else {
+      } else {
         echo "<h1 class='no-data'>Partners</h1>";
+      }
+    } catch (PDOException $e) {
+      echo "فشل الاتصال: " . $e->getMessage();
     }
-} catch (PDOException $e) {
-    echo "فشل الاتصال: " . $e->getMessage();
-}
 
-$conn = null; // Close the database connection
-?>
+    $conn = null; // Close the database connection
+    ?>
 
-  <button class="next" > <i class="fas fa-arrow-right"></i> </button>
-</div>
+    <button class="next"> <i class="fas fa-arrow-right"></i> </button>
+  </div>
 
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -219,7 +214,7 @@ $conn = null; // Close the database connection
         toggleNext(position);
       }
 
-}
+    }
 
 
 
@@ -234,20 +229,19 @@ $conn = null; // Close the database connection
       }
     }
 
-window.onresize = resize;
-doTheMagic();
+    window.onresize = resize;
+    doTheMagic();
 
 
-let cards = document.querySelectorAll('div.cardTranstion');
+    let cards = document.querySelectorAll('div.cardTranstion');
 
-cards.forEach(card => card.addEventListener('click', handleCardClick));
+    cards.forEach(card => card.addEventListener('click', handleCardClick));
 
-function handleCardClick(event) {
-  const category = event.currentTarget.classList[2];
-  window.location.href = `./pages/products/products.php?category=${category}`;
-}
-
- </script>
+    function handleCardClick(event) {
+      const category = event.currentTarget.classList[2];
+      window.location.href = `./pages/products/products.php?category=${category}`;
+    }
+  </script>
 </body>
 
-    </html>
+</html>

@@ -101,7 +101,7 @@ function pouplateBarGraph(data) {
 }
 
 function populateCategoriesTable(data) {
-  topCategory = ' ';
+  topCategory.innerHTML = ' ';
     data.slice(0, 8).forEach((e) => {
     let tr = document.createElement("tr");
     tr.innerHTML = `<td>${e.category_name}</td>

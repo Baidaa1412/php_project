@@ -1,143 +1,138 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$dbpassword = "";
-$dbname = "presentodb";
+include_once '../../php/connection.php';
 
-$conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Get the selected category ID from the URL
 if (isset($_GET['category']) && is_numeric($_GET['category'])) {
     $selectedCategoryID = $_GET['category'];
 } else {
-    // Handle invalid category ID or no category selected
     echo "Invalid category selection.";
     exit;
 }
+$query = "SELECT * FROM product WHERE category_id = :category_id";
+$stmt = $conn->prepare($query);
+$stmt->bindParam(':category_id', $selectedCategoryID, PDO::PARAM_INT);
 
-// Query to retrieve products for the selected category
-$query = "SELECT * FROM product WHERE category_id = $selectedCategoryID";
-$result = $conn->query($query);
+$result = $stmt->execute();
 
-// Close the database connection
-$conn->close();
+if ($result) {
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    echo "Error retrieving products.";
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../../css/style.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Include Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         h2 {
-           text-align: center;
-            margin-bottom: 10px;  
-             font-size: 4rem;
-           color: #4BA2A5;
-           margin-bottom: 5px;
-           margin-top: 4vh;    
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 4rem;
+            color: #4BA2A5;
+            margin-bottom: 5px;
+            margin-top: 4vh;
         }
 
-       
-      
-      .main-container {
+
+
+        .main-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 3rem;
-        
+
         }
 
         .product-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap:80px;
+            gap: 80px;
             justify-content: center;
             align-items: center;
             padding: 2px;
             max-width: 1200px;
             margin-top: 3rem;
         }
+
         .product-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: 300px;
-    background-color: #FFFFFF;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    cursor: pointer;
-}
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            background-color: #FFFFFF;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.product-card img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
 
-.product-card h2 {
-    font-size: 20px;
-    color: #4BA2A5;
-    margin: 0;
-    text-align: center;
-}
+        .product-card h2 {
+            font-size: 20px;
+            color: #4BA2A5;
+            margin: 0;
+            text-align: center;
+        }
 
-.product-card p {
-    color: #333;
-    margin: 5px 0;
-    text-align: center;
-}
+        .product-card p {
+            color: #333;
+            margin: 5px 0;
+            text-align: center;
+        }
 
-.add-to-cart-container {
-    display: flex;
-    align-items: center;
-}
+        .add-to-cart-container {
+            display: flex;
+            align-items: center;
+        }
 
-.product-price {
-    font-weight: bold;
-    color: #4BA2A5;
-    margin-right: 10px;
-}
+        .product-price {
+            font-weight: bold;
+            color: #4BA2A5;
+            margin-right: 10px;
+        }
 
-.add-to-cart-button {
-    background-color: #4BA2A5;
-    color: #FFFFFF;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-}
+        .add-to-cart-button {
+            background-color: #4BA2A5;
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
 
-.add-to-cart-button:hover {
-    background-color: #357f81;
-}
+        .add-to-cart-button:hover {
+            background-color: #357f81;
+        }
 
-/* Media query for smaller screens */
-@media (max-width: 768px) {
-    .product-card {
-        width: 100%;
-        margin: 10px 0;
-    }
-}
+        /* Media query for smaller screens */
+        @media (max-width: 768px) {
+            .product-card {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 
 <body>
-<nav class="navbar">
-    <!-- LOGO -->
-    <div class="logo"><img src='../../images/logo.png'  onclick="redirectToPage()"' /></div>
+    <nav class="navbar">
+        <!-- LOGO -->
+        <div class="logo"><img src='../../images/logo.png' onclick="redirectToPage()"' /></div>
 
     <!-- NAVIGATION MENU -->
     <ul class="nav-links">
@@ -184,74 +179,59 @@ $conn->close();
         // Get the selected category ID from the URL parameter
         $selectedCategory = $_GET['category'];
 
-        // Assuming your database connection credentials
-        $servername = "localhost";
-        $username = "root";
-        $dbpassword = "";
-        $dbname = "presentodb";
-
-        // Create a connection
-        $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        // Query to retrieve the selected category's name
+        if (isset($_GET['category']) && is_numeric($_GET['category'])) {
+            $selectedCategoryID = $_GET['category'];
+        } else {
+            // Handle invalid category ID or no category selected
+            echo "Invalid category selection.";
+            exit;
         }
 
-        // Query to retrieve the selected category's name
-        $categoryQuery = "SELECT name FROM category WHERE id = $selectedCategory";
-        $categoryResult = $conn->query($categoryQuery);
+        // Query to retrieve category name for the selected category
+        $categoryQuery = "SELECT name FROM category WHERE id = :category_id";
+        $stmt = $conn->prepare($categoryQuery);
+        $stmt->bindParam(':category_id', $selectedCategoryID, PDO::PARAM_INT);
 
-        if ($categoryResult->num_rows === 1) {
-            $categoryRow = $categoryResult->fetch_assoc();
+        $categoryResult = $stmt->execute();
+
+        if ($categoryResult) {
+            $categoryRow = $stmt->fetch(PDO::FETCH_ASSOC);
             $categoryName = $categoryRow['name'];
 
             // Display the category name in a header
-            echo '<h2>' . $categoryName . '</h2>';
+            echo '<h2>' . $categoryName . '</h2';
+        } else {
+            // Handle query execution error
+            echo "Error retrieving category name.";
         }
-
-        // Close the database connection
-        $conn->close();
         ?>
     </header>
     <div class="main-container">
         <div class="product-container">
         <?php
-while ($row = $result->fetch_assoc()) {
-    $productName = $row['name'];
-    $imageData = $row['picture'];
-    $base64Image = base64_encode($imageData);
-    $productDescription = $row['description']; // Assuming you have a 'description' column in your products table
-    $productPrice = $row['price']; // Assuming you have a 'price' column in your products table
-    $productId = $row['id'];
- 
-        
-        echo "<div class='product-card productTranstion $productId'>";
-        // إضافة معرّف المنتج كبيانات مخصصة داخل العنصر
-        echo "<div class='product-info' data-product-id='$productId'>";
-        echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
-        echo '<h2>' . $productName . '</h2>';
-        echo '<p>' . $productDescription . '</p>';
-        echo '<p>Price: JD' . $productPrice . '</p>';
-        echo '</div>';
-        echo '<div class="add-to-cart-container">';
-        echo '<button class="add-to-cart-button">Add to Cart</button>';
-        echo '</div>';
-        echo '</div>';
-    }
-    ?>
-    
+        foreach ($products as $row) {
+            $productName = $row['name'];
+            $imageData = $row['picture'];
+            $base64Image = base64_encode($imageData);
+            $productDescription = $row['description'];
+            $productPrice = $row['price'];
+            $productId = $row['id'];
 
-<?php
-while ($row = $result->fetch_assoc()) {
-    // ... (متغيرات المنتج)
-    
-   
-}
-?>
-
+            echo "<div class='product-card productTranstion $productId'>";
+            echo "<div class='product-info' data-product-id='$productId'>";
+            echo '<img src="data:image/jpeg;base64,' . $base64Image . '" alt="Product Image">';
+            echo '<h2>' . $productName . '</h2>';
+            echo '<p>' . $productDescription . '</p>';
+            echo '<p>Price: JD' . $productPrice . '</p>';
+            echo '</div>';
+            echo '<div class="add-to-cart-container">';
+            echo '<button class="add_to_cart_button">Add to Cart</button>';
+            echo '</div>';
+            echo '</div>';
+        }
+        ?>
         </div>
-    
     </div>
 
 
@@ -312,16 +292,12 @@ while ($row = $result->fetch_assoc()) {
     </div>
 </footer>
 <script>
-    let product = document.querySelectorAll('.productTranstion');
-
-    product.forEach(card => card.addEventListener('click', handleCardClick));
-
-    function handleCardClick(event) {
-      const product = event.currentTarget.classList[2];
-      window.location.href = `../Productreviwe/product.php?product=${product}`;
-      
-    }
-  </script>
-</body> 
+    let product = document.querySelectorAll(' .productTranstion'); product.forEach(card=> card.addEventListener('click', handleCardClick));
+            function handleCardClick(event) {
+            const product = event.currentTarget.classList[2];
+            window.location.href = `../Productreviwe/product.php?product=${product}`;
+            }
+            </script>
+</body>
 
 </html>

@@ -1,26 +1,8 @@
 <?php
-// Retrieve form inputs
-$fullName = $_POST['name'];
-$email = $_POST['email'];
-$mobile = $_POST['mobile'];
-$password = $_POST['password'];
-$confirmPassword = $_POST['confirmPassword'];
-$location = $_POST['location'];
 
-// Database connection details
-$servername = "localhost";
-$username = "root";
-$dbpassword = "";
-$dbname = "presentodb";
+include_once '../../php/connection.php';
 
 try {
-    // Create a new PDO instance
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $dbpassword);
-
-    // Set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Prepare the SQL statement
     $sql = "INSERT INTO user (name, email, password, phone_number, address) VALUES (:name, :email, :password, :phone, :address)";
     $stmt = $conn->prepare($sql);
 
