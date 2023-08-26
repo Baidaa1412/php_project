@@ -371,7 +371,7 @@ function update(e) {
     name: newName,
     stock: newStock,
     discount: newDiscount,
-    price: newPrice,
+    price: newPrice.substring(1),
     best_seller: NewBestSeller,
   };
 

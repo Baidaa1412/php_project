@@ -1,5 +1,3 @@
-<?php require("../../php/connection.php") ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,32 +35,28 @@
 
           <!-- DROPDOWN MENU -->
           <ul class="dropdown">
-          <?php
-// require("../php/connection.php");
-try {
-  $conn = new PDO("mysql:host=localhost;dbname=presentodb", "root","");
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
-  $sql = "SELECT name FROM category limit 5";
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-  $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            <?php
+            require("../../php/connection.php");
+            try {
+              $sql = "SELECT name FROM category limit 5";
+              $stmt = $conn->prepare($sql);
+              $stmt->execute();
+              $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  if (count($result) > 0) {
-    foreach ($result as $row) {
-      echo "<div class='cat'>";
-      echo "<li>" . $row["name"] . "</li>";
-      echo "</div>";
-    }
-  } else {
-    echo "<h1 class='no-data'>Partners</h1>";
-    echo "";
-  }
-} catch (PDOException $e) {
-  echo "Connection failed: " . $e->getMessage();
-}
-// Close the database connection
-?>
+              if (count($result) > 0) {
+                foreach ($result as $row) {
+                  echo "<div class='cat'>";
+                  echo "<li>" . $row["name"] . "</li>";
+                  echo "</div>";
+                }
+              } else {
+                echo "<h1 class='no-data'>Partners</h1>";
+                echo "";
+              }
+            } catch (PDOException $e) {
+              echo "Connection failed: " . $e->getMessage();
+            }
+            ?>
 
           </ul>
         </li>
@@ -74,28 +68,29 @@ try {
           <ul class="dropdown">
             <li><a href="../pages/login-regist/signup.html">Sign up</a></li>
             <?php
-session_start();
+            session_start();
 
-// Check if the user is logged in
-if (isset($_SESSION['user'])) {
-    $loggedInUser = $_SESSION['user'];
-    echo " <a href='./pages/User_Profile/Profile.php'>Profile</a> <a href='./pages/login-regist/logout.php'>Log Out</a>";
-} else {echo "<a href='./pages/login-regist/signup.html'>Sign up</a><br>";
-    echo "<a href='./pages/login-regist/login.html'>Log in</a>";
-}
-?>
+            // Check if the user is logged in
+            if (isset($_SESSION['user'])) {
+              $loggedInUser = $_SESSION['user'];
+              echo " <a href='./pages/User_Profile/Profile.php'>Profile</a> <a href='./pages/login-regist/logout.php'>Log Out</a>";
+            } else {
+              echo "<a href='./pages/login-regist/signup.html'>Sign up</a><br>";
+              echo "<a href='./pages/login-regist/login.html'>Log in</a>";
+            }
+            ?>
         </li>
       </div>
     </ul>
   </nav>
   <section>
-  <?php
+    <?php
 
     if (isset($_GET['product']) && is_numeric($_GET['product'])) {
       $productId = $_GET['product'];
 
       // Query to retrieve product information
-      $query = "SELECT picture, name, price, discount, stock, description FROM product WHERE id = :id";
+      $query = "SELECT id, picture, name, price, discount, stock, description FROM product WHERE id = :id";
       $stmt = $conn->prepare($query);
       $stmt->bindParam(':id', $productId, PDO::PARAM_INT); // Bind as integer
 
@@ -128,16 +123,14 @@ if (isset($_SESSION['user'])) {
 
           <p class="product-description"><?php echo $product['description']; ?></p>
 
-          <?php if ($product['stock'] > 1) { ?>
+          <?php if ($product['stock'] > 0) { ?>
             <p class="in_stock"><span class="green-dot"></span><?php echo "" ?> in stock</p>
             <p class="product-price"><?php echo $product["price"]; ?> JD</p>
             <p class="product-discountprice"><?php echo $priceAfterDiscount; ?> JD</p>
-            <button class="add-to-cart-button" id="add-to-cart" <?php echo $product['stock'] <= 0 ? 'disabled' : ''; ?>>
-              <i class="fas fa-shopping-cart"></i> Add to Cart
-            </button>
-          <?php } else if ($product['stock'] === 1) { ?>
-            <p class="in_stock"><?php echo "1 in stock"; ?></p>
-            <button class="add-to-cart-button" id="add-to-cart">
+            <button class="add-to-cart-button" id="add-to-cart" <?php $id = $product['id'];
+                                                                echo "data-id='$id'";
+                                                                echo $product['stock'] <= 0 ? 'disabled' : ''; 
+                                                                ?>>>
               <i class="fas fa-shopping-cart"></i> Add to Cart
             </button>
           <?php } else { ?>
@@ -152,38 +145,6 @@ if (isset($_SESSION['user'])) {
         </div>
       </div>
     </div>
-
-
-
-    <?php
-    // Assuming your database connection credentials
-    $servername = "localhost";
-    $username = "root";
-    $dbpassword = "";
-    $dbname = "presentodb";
-
-    // Create a connection
-    $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Get comments for the selected product
-    $productId = $_GET['product']; // Get the product ID from the URL or wherever it's available
-    $commentsQuery = "SELECT * FROM review WHERE productId = $productId";
-    $commentsResult = $conn->query($commentsQuery);
-
-    // Fetch comments and relevant user information
-    $comments = array();
-    while ($commentRow = $commentsResult->fetch_assoc()) {
-      $comments[] = $commentRow;
-    }
-
-    // Close the database connection
-    $conn->close();
-    ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -200,60 +161,39 @@ if (isset($_SESSION['user'])) {
       <h1>Product Comments</h1>
 
       <?php
-      // Assuming your database connection credentials
-      $servername = "localhost";
-      $username = "root";
-      $dbpassword = "";
-      $dbname = "presentodb";
 
-      // Create a connection
-      $conn = new mysqli($servername, $username, $dbpassword, $dbname);
-
-      // Check connection
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+      if (isset($_GET['product']) && is_numeric($_GET['product'])) {
+        $productId = $_GET['product'];
+      } else {
+        // Handle invalid product ID or no product selected
+        echo "Invalid product selection.";
+        exit;
       }
 
-      // Get comments for the selected product
-      $productId = $_GET['product']; // Get the product ID from the URL or wherever it's available
-      $commentsQuery = "SELECT * FROM review WHERE productId = $productId";
-      $commentsResult = $conn->query($commentsQuery);
+      // Query to retrieve comments and relevant user information
+      $commentsQuery = "SELECT r.*, u.name AS user_name FROM review r JOIN user u ON r.userId = u.id WHERE r.productId = :product_id";
+      $stmt = $conn->prepare($commentsQuery);
+      $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
 
-      // Fetch comments and relevant user information
-      $comments = array();
-      while ($commentRow = $commentsResult->fetch_assoc()) {
-        $comments[] = $commentRow;
+      $commentsResult = $stmt->execute();
+
+      if ($commentsResult) {
+        $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      } else {
+        // Handle query execution error
+        echo "Error retrieving comments.";
       }
 
-      // Assuming you have the comments data stored in the $comments array
+      // Process comments
       foreach ($comments as $comment) {
         $commentText = $comment['comment'];
-        $userId = $comment['userId']; // Assuming you have a 'userId' column in the 'review' table
-
-        // Retrieve user information based on the userId
-        $userQuery = "SELECT name FROM user WHERE id = $userId";
-        $userResult = $conn->query($userQuery);
-
-        if ($userResult->num_rows === 1) {
-          $userRow = $userResult->fetch_assoc();
-          $username = $userRow['name'];
-        } else {
-          $username = "Unknown User"; // Default if user not found
-        }
+        $username = $comment['user_name'];
 
         // Display the comment along with the user's username
         echo '<p class="rev1"><strong><i class="fas fa-user"></i> ' . $username . '</strong>' . '</p>';
-        echo '<p class="rev1" >' . $commentText . '</p>';
+        echo '<p class="rev1">' . $commentText . '</p>';
         echo '<hr>'; // Add a horizontal line between comments
       }
-
-      // Close the database connection
-      $conn->close();
-      ?>
-
-
-      <?php
-      // ... Your existing code ...
 
       // Add comment form
       echo '<div class="comment-form">';
@@ -267,20 +207,9 @@ if (isset($_SESSION['user'])) {
       echo '</div>'; // Close the product-card div
       ?>
 
-
       <?php
       if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        // Assuming your database connection credentials
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "presentodb";
-
         try {
-          $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-          // Set the PDO error mode to exception
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
           // Get the values from the submitted form
           $productId = $_POST['product_id'];
           $comment = $_POST['comment'];
@@ -294,9 +223,6 @@ if (isset($_SESSION['user'])) {
         } catch (PDOException $e) {
           echo "Error: " . $e->getMessage();
         }
-
-        // Close the database connection
-        $conn = null;
       }
       ?>
 
@@ -333,7 +259,6 @@ if (isset($_SESSION['user'])) {
                   echo "Connection failed: " . $e->getMessage();
                 }
                 ?>
-
             </div>
           </div><!--- END COL -->
           <div class="col-md-4 col-sm-4 col-xs-12">

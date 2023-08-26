@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $respone[] = $res;
 
-    $stmt = $conn->prepare("SELECT c.imageURL, c.id, c.image, c.name, COUNT(p.id) AS total_products , c.status FROM category c JOIN product p ON p.category_id = c.id GROUP BY c.image, c.name;
-    ");
+    $stmt = $conn->prepare("SELECT c.imageURL, c.id, c.image, c.name, (SELECT COUNT(*) FROM product p WHERE p.category_id = c.id) AS total_products, c.status FROM category c;");
     $stmt->execute();
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     foreach ($res as &$value) {

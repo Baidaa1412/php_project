@@ -1,6 +1,6 @@
 function redirectToPage() {
     window.location.href = "../../index.php";
-  }// <!-- -----------------Table that display the comments --------------- -->
+  }
  document.addEventListener("DOMContentLoaded", function() {
     const addToCartButton = document.getElementById("add-to-cart");
     const quantityInput = document.getElementById("quantity");
@@ -17,10 +17,20 @@ function redirectToPage() {
       }
     });
 
-    addToCartButton.addEventListener("click", function() {
+    addToCartButton.addEventListener("click", function(e) {
       const quantity = parseInt(quantityInput.value);
+      let product ={
+        id:e.currentTarget.getAttribute("data-id"),
+        quantity:quantity
+      }
       if (quantity > 0) {
-        alert(`Added ${quantity} products to the cart`);
+        fetch("./addToCart.php", {
+          method: "POST",
+          headers: {
+            "Content0-Type": "application/json",
+          },
+          body: JSON.stringify(product),
+        })
       }
       
     });
