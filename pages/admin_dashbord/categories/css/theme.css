@@ -2746,7 +2746,10 @@ Notes:	decreasing heading by 0.4em with every subsequent heading level
     position: relative;
     z-index: 3;
   }
-  
+  .header__logo a img{
+    max-width:13vmin;
+  }
+
   .header__navbar ul {
     display: -webkit-box;
     display: -webkit-flex;

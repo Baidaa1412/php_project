@@ -5,7 +5,22 @@ let weeksSales = document.querySelector("#weekSale");
 let totalSales = document.querySelector("#totalSale");
 
 NumberOfCustomers = document.querySelector("#NumCustomer");
-
+function checkCred() {
+  fetch("../checkCreds.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      if (data === "failed")  window.location.href = "../login";
+    });
+}
+checkCred();
 document.body.onload = FetchData();
 
 function FetchData() {
@@ -74,29 +89,27 @@ function renderData(data) {
   populateTable(data[1]);
 }
 function populateTable(data) {
-  let table = document.querySelector('#OrdersTable');
-  let custName, CustEmail, adrress, price, Stat;
-  for (let i = 0; i < (data.length > 10 ? 10 : data.length); i++) {
-    custName = data[i]["customer_name"];
-    CustEmail = data[i]["customer_email"];
-    adrress = data[i]["order_address"];
-    price = data[i]["product_price"] * data[i]["order_quantity"];
-    Stat = data[i]["order_status"] == 1 ? true : false;
-    let newRow = document.createElement('tr'); 
-    newRow.innerHTML =`
-    <td>${custName}</td>
-     <td>${CustEmail}</td>
-      <td>${adrress}</td>
-       <td>$${price.toLocaleString()}</td>
-        <td class="${
-      Stat ? "process" : "denied"
-    }">${Stat ? "Confirmed" : "Cancelled"}
-    </td>
-`;
-    table.append(newRow);
-  }
+  let table = document.querySelector("#OrdersTable");
+  table.innerHTML = '';
+  data.forEach((e) => {
+    tr = document.createElement("tr");
+    if (e["order_status"] !== 2) {
+      tr.innerHTML = `
+      <td>${e["customer_name"]}</td>
+       <td>${e["customer_email"]}</td>
+        <td>${e["order_address"]}</td>
+         <td>$${(
+           e["product_price"] * e["order_quantity"]
+         ).toLocaleString()}</td>
+          <td class="${e["order_status"] ? "process" : "denied"}">${
+        e["order_status"] ? "Confirmed" : "Cancelled" 
+      }
+      </td>
+  `;
+      table.append(tr);
+    }
+  });
 
-  // for(let i in)
 }
 
 function populatePia(categories) {
@@ -249,4 +262,18 @@ function generateColors(numColors) {
     colors.push(`hsla(210, 100%, ${lightness}%, 0.9)`); // Hue 210 represents blue
   }
   return colors;
+}
+document.querySelector('.logOut').addEventListener('click' ,logout);
+
+function logout(e){
+  console.log(1);
+  fetch("../logout.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  }).then(d =>{
+    window.location.href = '../login';
+  });
 }

@@ -2659,6 +2659,9 @@ section {
     position: relative;
     z-index: 3;
 }
+.header__logo a img {
+    max-width: 13vmin;
+}
 
 .header__navbar ul {
     display: -webkit-box;
@@ -2971,6 +2974,7 @@ section {
 .header4-wrap .header__logo {
     margin: 11.5px 0;
 }
+
 
 .header4-wrap .header__tool .header-button-item {
     color: #a9b3c9;

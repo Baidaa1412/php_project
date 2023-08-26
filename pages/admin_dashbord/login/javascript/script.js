@@ -44,3 +44,4 @@ function displayError() {
 </div>`;
   form.prepend(alert);
 }
+

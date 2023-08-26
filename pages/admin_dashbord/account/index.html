@@ -24,7 +24,7 @@
 
   <!-- Main CSS-->
   <link href="css/theme.css" rel="stylesheet" media="all">
-
+  <link rel="stylesheet" href="../../StaticHeaderStyle.css">
 
 
   <!-- fontaswasom  -->
@@ -47,18 +47,18 @@
 
     <aside class="menu-sidebar2">
       <div class="logo">
-        <img src="../../../images/178x52.svg" alt="Cool Admin" />
+        <img src="../../../images/logo.png" alt="Cool Admin" />
       </div>
 
       <div class="menu-sidebar2__content js-scrollbar1">
         <nav class="navbar-sidebar2">
           <ul class="list-unstyled navbar__list">
-            <li>
-              <a href="./subPages/details.html">
+            <li style="color: #3765fc;">
+              <a style="color: #3765fc;">
                 <i class="fa-regular fa-circle-info"></i>Details</a>
             </li>
             <li>
-              <a href="../account/">
+              <a class="logOut">
                 <i class="zmdi zmdi-power"></i>Logout</a>
             </li>
           </ul>
@@ -70,16 +70,16 @@
         <div class="col-lg-10 p-b-120">
           <div class="card p-b-75 p-t-75">
             <div class="card-body card-block">
-              <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+              <div class="form-horizontal">
                 <div class="row form-group">
                   <div class="col ">
-                    <label for="text-input" class=" form-control-label">Username</label>
+                    <label for="text" class=" form-control-label">Username</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
+                    <input  disabled type="text" name="text" placeholder="Text" class="usernameform form-control">
                   </div>
-                  <div class="col-12 col-md-3 align-self-center">
-                    <button type="submit" class="btn btn-primary btn-sm">
+                  <div class="col-12 col-md-3 align-self-center Toolbuttons">
+                    <button id="username" type="submit" class="btn btn-primary btn-sm">
                       <i class="fa-regular fa-pen-to-square"></i> &#160; Edit
                     </button>
 
@@ -87,14 +87,14 @@
                 </div>
                 <div class="row form-group">
                   <div class="col ">
-                    <label for="text-input" class=" form-control-label">Email</label>
+                    <label for="text" class=" form-control-label">Email</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" id="text-input" name="text-input" placeholder="Email" class="form-control">
+                    <input disabled type="email" name="text" placeholder="Email" class="emailform form-control">
 
                   </div>
-                  <div class="col-12 col-md-3 align-self-center">
-                    <button type="submit" class="btn btn-primary btn-sm">
+                  <div class="col-12 col-md-3 align-self-center Toolbuttons">
+                    <button id="email" type="submit" class="btn btn-primary btn-sm">
                       <i class="fa-regular fa-pen-to-square"></i> &#160; Edit
                     </button>
 
@@ -102,19 +102,19 @@
                 </div>
                 <div class="row form-group">
                   <div class="col ">
-                    <label for="text-input" class=" form-control-label">Password</label>
+                    <label for="text" class="form-control-label">Password</label>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" id="text-input" name="text-input" placeholder="*********" class="form-control">
+                    <input disabled type="text" name="text" placeholder="*********" class="passwordform form-control">
 
                   </div>
-                  <div class="col-12 col-md-3 align-self-center">
-                    <button type="submit" class="btn btn-primary btn-sm">
+                  <div class="col-12 col-md-3 align-self-center Toolbuttons">
+                    <button id="password" type="submit" class="btn btn-primary btn-sm">
                       <i class="fa-regular fa-pen-to-square"></i> &#160; Edit
                     </button>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -150,6 +150,7 @@
 
   <!-- Main JS-->
   <script defer src="javascript/main.js"></script>
+  <script defer src="javascript/script.js"></script>
 
 </body>
 

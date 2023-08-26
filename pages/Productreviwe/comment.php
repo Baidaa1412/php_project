@@ -11,7 +11,7 @@ require("conn.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $conn = new PDO("mysql:host=localhost;dbname=presento", "root", "");
+        $conn = new PDO("mysql:host=localhost:4306;dbname=presento", "root", "");
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $userId = "anonymos";

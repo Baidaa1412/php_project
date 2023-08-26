@@ -1,4 +1,3 @@
-document.body.onload = fetchData();
 let DyName = document.querySelectorAll(".dyName");
 let DyEmail = document.querySelectorAll(".dyEmail");
 let topPoductTable = document.querySelector("#TopProductTable");
@@ -13,6 +12,24 @@ addItemBtn.addEventListener("click", addProduct);
 
 let totalStock = document.querySelector(".totalStock");
 
+function checkCred() {
+  fetch("../checkCreds.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      if (data === "failed")  window.location.href = "../login";
+      ;
+    });
+}
+checkCred();
+document.body.onload = fetchData();
 function addProduct(e) {
   if (document.querySelectorAll(".newProduct").length < 1) {
     tr = document.createElement("tr");
@@ -131,6 +148,7 @@ function renderData(data) {
 }
 
 function populateTopProductTable(data) {
+  topPoductTable.innerHTML = "";
   data.forEach((e, i) => {
     tr = document.createElement("tr");
 
@@ -181,6 +199,7 @@ function populateProductTable(data) {
           <span class="au-checkmark"></span>
         </label>
       </td>
+      <td></td>
       <td>
         <div class="table-data-feature">
   
@@ -396,4 +415,18 @@ function isFileAllowed(fileInput) {
   const fileName = fileInput.name;
   const fileExtension = fileName.split(".").pop().toLowerCase();
   return allowedExtensions.includes(fileExtension);
+}
+
+document.querySelector('.logOut').addEventListener('click' ,logout);
+
+function logout(e){
+  fetch("../logout.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  }).then(d =>{
+    window.location.href = '../login';
+  });
 }

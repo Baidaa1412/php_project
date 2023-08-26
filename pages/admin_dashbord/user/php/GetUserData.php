@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $respone[] = $res[0];
 
-    $stmt = $conn->prepare("select picture , pictureURI , email , phone_number ,address , name from user ");
+    $stmt = $conn->prepare("select id,picture , pictureURI , email , phone_number ,address,status , name from user ");
     $stmt->execute();
     $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     foreach ($res as &$value) {

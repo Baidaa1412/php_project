@@ -10,7 +10,7 @@
   <!-- Include Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <title>Document</title>
+  <title>Home</title>
 </head>
 
 <body>
@@ -59,8 +59,8 @@
     </ul>
   </nav>
   <div class="page_wraper">
-    <section class="maincon">
-      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <section class="maincon">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -120,7 +120,7 @@
 
           SHOP NOW
         </button></a>
-      <div id="partener"> <?php include './pages/mainpage/best.php' ?> </div>
+      <div id="partener"> <?phlp include './pages/mainpage/best.php' ?> </div>
 
     </section>
 
@@ -141,77 +141,75 @@
                 $password = "";
                 $dbname = "presentodb";
 
-                try {
-                  $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-                  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                  $sql = "SELECT name FROM category limit 5";
-                  $stmt = $pdo->query($sql);
+    $sql = "SELECT name FROM category limit 5";
+    $stmt = $pdo->query($sql);
 
-                  if ($stmt->rowCount() > 0) {
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                      echo "<div class='cat'>";
-                      echo "<li><a>" . $row["name"] . "</a></li>";
-                      echo "</div>";
-                    }
-                  } else {
-                    echo "<h1 class='no-data'>Partners</h1>";
-                  }
-                } catch (PDOException $e) {
-                  echo "فشل الاتصال: " . $e->getMessage();
-                }
-                ?>
+    if ($stmt->rowCount() > 0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            echo "<div class='cat'>";
+            echo "<li><a>" . $row["name"] . "</a></li>";
+            echo "</div>"; 
+        }
+    } else {
+        echo "<h1 class='no-data'>Partners</h1>";
+    }
+} catch (PDOException $e) {
+    echo "فشل الاتصال: " . $e->getMessage();
+}
+?>
 
-            </div>
-          </div><!--- END COL -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single_footer single_footer_address">
-              <h4>GET TO KNOW US</h4>
-              <ul>
-                <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
-                <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
-                <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
-                <li><a href="./pages/mainpage/policy.php">privacy policy </a></li>
-                <li><a href="#partener">Paterners</a></li>
-              </ul>
-            </div>
-          </div><!--- END COL -->
-          <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single_footer single_footer_address">
-              <h4>Subscribe today</h4>
-              <div class="signup_form">
-                <form action="#" class="subscribe">
-                  <input type="text" class="subscribe__input" placeholder="Enter Email Address">
-                  <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
-                </form>
-              </div>
-            </div>
-            <div class="social_profile">
-              <ul>
-                <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
-                <li><a href=""><i class="fab fa-instagram"></i></a></li>
-              </ul>
-            </div>
-          </div><!--- END COL -->
-        </div><!--- END ROW -->
-        <div class="row">
-          <div class="col-lg-12 col-sm-12 col-xs-12">
-            <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
-          </div><!--- END COL -->
-        </div><!--- END ROW -->
-      </div><!--- END CONTAINER -->
+                    </div>
+                </div><!--- END COL --> 
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>GET TO KNOW US</h4>
+                        <ul>
+                        <li><a href="./pages/mainpage/aboutus.php" style="text-decoration: none;">About Us</a></li>
+                            <li><a href="./pages/mainpage/contactus.php">Contact Us</a></li>
+                            <li><a href="./pages/mainpage/terms.php">Terms and conditions </a></li>
+                            <li><a href="./pages/mainpage/policy.php">privacy policy  </a></li>
+                            <li><a href="#partener">Paterners</a></li>
+                        </ul>
+                    </div>
+                </div><!--- END COL -->
+                <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="single_footer single_footer_address">
+                        <h4>Subscribe today</h4>
+                        <div class="signup_form">                           
+                            <form action="#" class="subscribe">
+                                <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                                <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="social_profile">
+                        <ul>
+                            <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="mailto:baidaaalkhalaf14@gmail.com"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li><a href=""><i class="fab fa-instagram"></i></a></li>
+                        </ul>
+                    </div>                          
+                </div><!--- END COL -->         
+            </div><!--- END ROW --> 
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <p class="copyright">Copyright © 2023 <a href="#">presento</a>.</p>
+                </div><!--- END COL -->                 
+            </div><!--- END ROW -->                 
+        </div><!--- END CONTAINER -->
     </div>
   </footer>
 
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <script src="./javascript/main.js"></script>
-
-
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="./javascript/main.js" ></script>
 </html>

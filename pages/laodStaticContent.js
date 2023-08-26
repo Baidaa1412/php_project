@@ -10,14 +10,15 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
       <!-- <to-do> ADD a link to the home page</to-do> -->
 
       <a href="../../../index.php">
-        <img src="../../../images/178x52.svg" alt="Presento" />
+        <img src="../../../images/logo.png" style= "filter: invert(100%);
+        "alt="Presento" />
       </a>
     </div>
     <div class="header__navbar">
       <ul class="list-unstyled">
         <li>
           <a href="../sales/">
-            <i class="fa-sharp fa-regular fa-money-bill-trend-up"></i>Sales
+            <i class="fa-sharp fa-regular fa-money-bill-trend-up"></i>dashboard
             <span class="bot-line"></span>
           </a>
         </li>
@@ -60,17 +61,13 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
             </div>
             <div class="account-dropdown__body">
               <div class="account-dropdown__item">
-                <a href="#">
+                <a href="../account">
                   <i class="zmdi zmdi-account"></i>Account</a>
-              </div>
-              <div class="account-dropdown__item">
-                <a href="#">
-                  <i class="zmdi zmdi-settings"></i>Setting</a>
               </div>
 
             </div>
             <div class="account-dropdown__footer">
-              <a href="#">
+              <a class="logOut">
                 <i class="zmdi zmdi-power"></i>Logout</a>
             </div>
           </div>
@@ -89,7 +86,8 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
   <div class="container-fluid">
     <div class="header-mobile-inner">
       <a class="logo" href="index.html">
-        <img src="../../../images/178x52.svg" />
+        <img src="../../../images/logo.png" style= "filter: invert(100%);
+        " />
       </a>
       <button class="hamburger hamburger--slider" type="button">
         <span class="hamburger-box">
@@ -104,7 +102,7 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
     <ul class="navbar-mobile__list list-unstyled">
       <li>
         <a href="../sales/">
-          <i class="fa-sharp fa-regular fa-money-bill-trend-up"></i>Sales
+          <i class="fa-sharp fa-regular fa-money-bill-trend-up"></i>dashboard
           <span class="bot-line"></span>
         </a>
       </li>
@@ -153,13 +151,9 @@ let doc = document.querySelector('.page-wrapper div:first-child ').innerHTML =
             <a href="#">
               <i class="zmdi zmdi-account"></i>Account</a>
           </div>
-          <div class="account-dropdown__item">
-            <a href="#">
-              <i class="zmdi zmdi-settings"></i>Settings</a>
-          </div>
         </div>
         <div class="account-dropdown__footer">
-          <a href="#">
+          <a class="logOut">
             <i class="zmdi zmdi-power"></i>Logout</a>
         </div>
       </div>
@@ -179,3 +173,4 @@ let footer = document.querySelector('#footer').innerHTML = `
   </div>
 </div>
 </div>`;
+
